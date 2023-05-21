@@ -1,0 +1,154 @@
+.back_button i {
+    position: unset;
+}
+
+.container {
+    background-color: rgb(249 233 233);
+    height: 100%;
+    position: fixed;
+    width: 100%;
+}
+
+
+.header_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header {
+    text-align: center;
+}
+
+.header>p {
+    width: 100%;
+    margin: 0;
+    font-weight: bolder;
+    font-size: 3.3vh;
+    color: #fa7e58;
+}
+
+.wallet_balance_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 7.5vh;
+    margin-top: 2.5vh;
+}
+
+.wallet_balance {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(255, 123, 0);
+    width: 90%;
+    height: 100%;
+    border-radius: 2vh;
+}
+
+.wallet_balance p {
+    color: white;
+    font-weight: bolder;
+    margin-left: 4vw !important;
+    margin-right: 4vw !important;
+}
+
+.section_2 {
+    margin-top: 6vh;
+}
+
+.section_2 p {
+    margin-left: 3vw;
+    color: #fa7e58;
+    font-weight: bold;
+}
+
+.amount_buttons {
+    margin-top: 4vh;
+}
+
+.amount_buttons>div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.amount_buttons>div>div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.amount_button {
+    margin: 5px;
+    flex-basis: calc(33.33% - 4vh);
+    height: 5.5vh;
+    background-color: rgb(243, 123, 96);
+    color: white;
+    width: 20vw;
+}
+
+.amount_button.selected {
+    background-color: rgb(255, 123, 0);
+}
+
+.section_3 {
+    bottom: 0;
+    width: 100%;
+    position: fixed;
+}
+
+.below_card {
+    height: 20vh;
+    margin-left: 3vh;
+    margin-right: 3vh;
+    background-color: white;
+    border-top-right-radius: 2vw;
+    border-top-left-radius: 2vw;
+    padding: 3vh;
+}
+
+.amount_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.amount_container .rupee_icon {
+    color: rgb(243, 123, 96);
+    font-weight: bold;
+    display: inline;
+}
+
+
+.amount_container>p {
+    color: rgb(243, 123, 96);
+    font-weight: bold;
+}
+
+
+.amount_container input {
+    outline: 0;
+    border: 0;
+    width: 7vw;
+    font-weight: bold;
+    color: rgb(243, 123, 96);
+}
+
+.below_card>hr {
+    border-width: 2px !important;
+    border-color: rgb(255, 123, 0);
+    opacity: 1 !important;
+    border-radius: 10vh;
+}
+
+.below_card>.button_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.below_card>.button_container>button {
+    width: 60vw;
+    height: 6vh;
+}

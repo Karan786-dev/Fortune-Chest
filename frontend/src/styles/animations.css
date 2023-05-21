@@ -1,0 +1,14 @@
+/* Move From down animation  */
+
+@keyframes move_from_down {
+    0%{
+        transform: translateY(100px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.move_from_down {
+    animation: move_from_down 1s !important;
+}

@@ -1,0 +1,199 @@
+.container {
+    background-color: rgb(249 233 233);
+    height: 100%;
+    position: fixed;
+    width: 100%;
+}
+
+.back_button i {
+    position: unset;
+}
+
+.header_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header {
+    text-align: center;
+}
+
+.header>p {
+    width: 100%;
+    margin: 0;
+    font-weight: bolder;
+    font-size: 3.3vh;
+    color: #fa7e58;
+}
+
+.wallet_balance_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 7.5vh;
+    margin-top: 2.5vh;
+}
+
+.wallet_balance {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(255, 123, 0);
+    width: 90%;
+    height: 100%;
+    border-radius: 2vh;
+}
+
+.wallet_balance p {
+    color: white;
+    font-weight: bolder;
+    margin-left: 4vw !important;
+    margin-right: 4vw !important;
+}
+
+.section_2 {
+    margin-top: 6vh;
+}
+
+.section_2 p {
+    margin-left: 3vw;
+    color: #fa7e58;
+    font-weight: bold;
+}
+
+.amount_buttons {
+    margin-top: 1vh;
+}
+
+.amount_buttons>div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.amount_buttons>div>div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.amount_button {
+    margin: 5px;
+    flex-basis: calc(33.33% - 4vh);
+    height: 5vh;
+    background-color: rgb(243, 123, 96);
+    color: white;
+    width: 20vw;
+}
+
+.amount_button.selected {
+    background-color: rgb(255, 123, 0);
+}
+
+
+/* Bank details card */
+.section_3 {
+    margin-top: 2vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bank_card {
+    background-color: white;
+    width: 85%;
+    height: 28vh;
+    border-radius: 2vh;
+}
+
+.bank_card .header_container {
+    background-color: rgb(255, 123, 0);
+    border-top-left-radius: 2vh;
+    border-top-right-radius: 2vh;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.bank_card .header_container p {
+    margin-left: 4vw;
+    font-weight: bolder;
+    font-size: 5vw;
+    color: white;
+}
+
+.bank_details {
+    margin-left: 4vw;
+}
+
+.bank_details .label {
+    color: #fa7e58;
+    font-size: 4vw;
+}
+
+.bank_details .detail {
+    font-weight: bolder;
+    color: #fa7e58;
+    font-size: 3vw;
+}
+
+.section_4 {
+    bottom: 0;
+    width: 100%;
+    position: fixed;
+}
+
+.below_card {
+    height: 16vh;
+    background-color: white;
+    border-top-right-radius: 5vw;
+    border-top-left-radius: 5vw;
+    padding: 3vh;
+}
+
+.amount_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.amount_container>p {
+    color: rgb(243, 123, 96);
+    font-weight: bold;
+}
+
+.amount_container .rupee_icon {
+    color: rgb(243, 123, 96);
+    font-weight: bold;
+    display: inline;
+}
+
+
+.amount_container input {
+    outline: 0;
+    border: 0;
+    width: 7vw;
+    font-weight: bold;
+    color: rgb(243, 123, 96);
+}
+
+.below_card>hr {
+    border-width: 2px !important;
+    border-color: rgb(255, 123, 0);
+    opacity: 1 !important;
+    border-radius: 10vh;
+    margin-bottom: 5px;
+}
+
+.below_card>.button_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.below_card>.button_container>button {
+    width: 60vw;
+    height: 5vh;
+}

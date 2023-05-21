@@ -1,0 +1,37 @@
+a {
+  text-decoration: none !important;
+  color: unset !important;
+}
+
+.orange_input {
+  border-radius: 20px;
+  border: none;
+  background-color: rgb(255, 214, 214);
+}
+
+.orange_input:focus {
+  outline: solid;
+  outline-color: rgb(255, 123, 0);
+}
+
+.orange_button {
+  width: 100%;
+  border-radius: 20px;
+  border: none;
+  background-color: #E86137;
+  color: white;
+  font-weight: bold;
+}
+
+.orange_button:disabled{
+  opacity: 0.5;
+}
+
+body {
+  font-family: 'Nikukyu' !important;
+  font-style: normal;
+}
+
+p {
+  margin-bottom: 0 !important;
+}
