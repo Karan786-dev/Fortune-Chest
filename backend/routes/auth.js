@@ -1,10 +1,10 @@
 const { Router } = require("express");
-const { db } = require("../backend");
-const { generate_otp, send_message, send_mail } = require("../backend/functions");
+const { db } = require("..");
+const { generate_otp, send_message, send_mail } = require("../functions");
 const router = Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const { JWT_SECRET, ADMIN_PASSWORD, app_link } = require("../backend/config");
+const { JWT_SECRET, ADMIN_PASSWORD, app_link } = require("../config");
 const { ObjectId } = require("mongodb");
 let users = {};
 

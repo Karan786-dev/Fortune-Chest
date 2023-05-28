@@ -10,7 +10,7 @@ const client = new MongoClient(MONGO_URL, {
 client
   .connect()
   .then((client) => {
-    const db = client.db("DailyChestDemo");
+    const db = client.db("DailyChest@");
 
     // Create index for frequently searched fields
     db.collection("accounts").createIndex(

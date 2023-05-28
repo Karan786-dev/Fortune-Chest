@@ -1,6 +1,6 @@
 const { ObjectId } = require("mongodb");
-const authUserorAdmin = require("../backend/middleware/authUserorAdmin");
-const { db } = require("../backend");
+const authUserorAdmin = require("../middleware/authUserorAdmin");
+const { db } = require("..");
 
 const router = require("express").Router();
 

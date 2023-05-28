@@ -1,5 +1,5 @@
-const authAdmin = require("../backend/middleware/authAdmin");
-const { db } = require("../backend");
+const authAdmin = require("../middleware/authAdmin");
+const { db } = require("..");
 const router = require("express").Router();
 
 //ROUTE 1: POST /api/admin/getAccounts

@@ -1,5 +1,5 @@
 const { ObjectId } = require("mongodb");
-const { db } = require("../backend");
+const { db } = require("..");
 
 module.exports = async (req, res, next) => {
   try {

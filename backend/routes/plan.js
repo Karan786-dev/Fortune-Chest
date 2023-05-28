@@ -1,12 +1,12 @@
 const { Router } = require("express");
 const { ObjectId } = require("mongodb");
-const { db } = require("../backend");
-const { send_mail } = require("../backend/functions");
-const authAdmin = require("../backend/middleware/authAdmin");
-const authUser = require("../backend/middleware/authUser");
-const checkBan = require("../backend/middleware/checkBan");
-const userDataToRequest = require("../backend/middleware/userDataToRequest");
-const multerImage = require("../../../../campaign_panel/backend/middleware/multerImage");
+const { db } = require("..");
+const { send_mail } = require("../functions");
+const authAdmin = require("../middleware/authAdmin");
+const authUser = require("../middleware/authUser");
+const checkBan = require("../middleware/checkBan");
+const userDataToRequest = require("../middleware/userDataToRequest");
+const multerImage = require("../middleware/multerImage");
 const router = Router();
 
 //ROUTE 1:POST /api/plan/create
