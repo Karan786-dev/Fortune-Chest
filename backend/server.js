@@ -16,9 +16,9 @@ app.use(express.static(path.join(__dirname, "images")));
 app.use(express.json());
 
 const { PORT } = require("./config");
-http.listen(PORT, (error) => {
+http.listen(process.env.PORT || PORT, (error) => {
   if (error) throw new Error(error);
-  console.log("Server listening on port:", PORT);
+  console.log("Server listening on port:", process.env.PORT || PORT);
 });
 
 app.use('/api/auth', require('./routes/auth'));
