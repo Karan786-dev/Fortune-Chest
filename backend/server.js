@@ -3,14 +3,10 @@ const path = require("path");
 const app = express();
 const http = require("http").createServer(app);
 const cors = require("cors");
-const fs = require('fs')
-app.use(cors({
-  origin: "*",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  preflightContinue: false,
-  optionsSuccessStatus: 204
-}));
+const fs = require('fs');
 
+// Allow requests from all origins
+app.use(cors());
 
 if (!fs.existsSync(path.join(__dirname, "images"))) {
   fs.mkdirSync(path.join(__dirname, "images"));
@@ -22,11 +18,10 @@ app.use(express.json());
 const { PORT } = require("./config");
 http.listen(PORT, (error) => {
   if (error) throw new Error(error);
-  console.log("Server listing to port:", PORT);
+  console.log("Server listening on port:", PORT);
 });
 
-
-app.use('/api/auth', require('./routes/auth'))
-app.use('/api/plan', require('./routes/plan'))
-app.use('/api/user', require('./routes/user'))
-app.use('/api/admin', require('./routes/admin'))
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/plan', require('./routes/plan'));
+app.use('/api/user', require('./routes/user'));
+app.use('/api/admin', require('./routes/admin'));
