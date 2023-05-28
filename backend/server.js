@@ -4,7 +4,13 @@ const app = express();
 const http = require("http").createServer(app);
 const cors = require("cors");
 const fs = require('fs')
-app.use(cors({ origin: "*" }));
+app.use(cors({
+  origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+}));
+
 
 if (!fs.existsSync(path.join(__dirname, "images"))) {
   fs.mkdirSync(path.join(__dirname, "images"));
