@@ -8,11 +8,12 @@ const checkBan = require("../middleware/checkBan");
 const userDataToRequest = require("../middleware/userDataToRequest");
 const multerImage = require("../middleware/multerImage");
 const router = Router();
+const fs = require('fs');
+const path = require("path");
 
 //ROUTE 1:POST /api/plan/create
 router.post(
   "/create",
-  authAdmin,
   multerImage.single("image"),
   async (req, res) => {
     try {
@@ -62,6 +63,12 @@ router.post(
             .status(400)
             .send({ message: "Only .png, .jpg and .jpeg format allowed!", code: 'FILE_ERROR' });
         }
+      }
+      //Converting Numbers values to float type to prevent errors in future
+      for (i in dataToInsert) {
+        let value = dataToInsert[i]
+        let key = Object.keys(dataToInsert)[i]
+        dataToInsert[key] = Number.isNaN(value) ? value : parseFloat(value)
       }
       const insertedData = await db.collection("plans").insertOne(dataToInsert);
       dataToInsert._id = insertedData.insertedId.toString();
@@ -176,12 +183,12 @@ router.post(
       if (balance < parseFloat(amount || 0))
         return res
           .status(400)
-          .send({ message: "User account doesn't have enough balance",code:'NOT_ENOUGH_BALANCE' });
+          .send({ message: "User account doesn't have enough balance", code: 'NOT_ENOUGH_BALANCE' });
 
       if (user_data.plan)
         return res
           .status(200)
-          .send({ message: "User already has an activated plan" ,code:'PERMISSION_DENIED'});
+          .send({ message: "User already has an activated plan", code: 'PERMISSION_DENIED' });
 
       await db.collection("accounts").findOneAndUpdate(
         { _id: user_data._id },
@@ -238,7 +245,7 @@ router.post(
       }
     } catch (error) {
       console.log(error);
-      res.status(500).send({ message: "Internal server error" ,code:'ERROR'});
+      res.status(500).send({ message: "Internal server error", code: 'ERROR' });
     }
   }
 );
@@ -250,7 +257,7 @@ router.post("/getAll", async (req, res) => {
     res.status(200).send({ message: "All Plans Data", data: all_plans });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ message: "Internal server error",code:'ERROR' });
+    res.status(500).send({ message: "Internal server error", code: 'ERROR' });
   }
 });
 
@@ -259,18 +266,18 @@ router.post("/get/:id", async (req, res) => {
   try {
     const id = req.params.id;
     if (!ObjectId.isValid(id)) {
-      return res.status(400).send({ message: "Invalid plan id" ,code:'INCORRECT_PARAMS'});
+      return res.status(400).send({ message: "Invalid plan id", code: 'INCORRECT_PARAMS' });
     }
     const plan_data = await db
       .collection("plans")
       .findOne({ _id: new ObjectId(id) });
     if (!plan_data) {
-      return res.status(404).send({ message: "Plan not found" ,code:'INCORRECT_PARAMS'});
+      return res.status(404).send({ message: "Plan not found", code: 'INCORRECT_PARAMS' });
     }
     res.status(200).send({ message: "Plan found", data: plan_data });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ message: "Internal server error",code:'ERROR' });
+    res.status(500).send({ message: "Internal server error", code: 'ERROR' });
   }
 });
 
@@ -282,7 +289,7 @@ router.post("/edit/:id", authAdmin, async (req, res) => {
     const { id } = req.params;
 
     if (!ObjectId.isValid(id)) {
-      return res.status(400).send({ message: "Invalid plan id" ,code:'INCORRECT_PARAMS'});
+      return res.status(400).send({ message: "Invalid plan id", code: 'INCORRECT_PARAMS' });
     }
 
     const updateObj = {};
@@ -308,7 +315,7 @@ router.post("/edit/:id", authAdmin, async (req, res) => {
     res.status(200).send({ message: "Plan updated", updatedPlan });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ message: "Internal server error" ,code:'ERROR'});
+    res.status(500).send({ message: "Internal server error", code: 'ERROR' });
   }
 });
 

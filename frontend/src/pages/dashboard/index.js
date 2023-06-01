@@ -16,7 +16,7 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 
 
-export const index = ({ UserData, updateUserData }) => {
+export const index = ({ UserData, updateUserData, getPlansData }) => {
   const [slideIndex, setSlideIndex] = useState(0);
   const slidesRef = useRef(null);
   let banners = [
@@ -119,7 +119,10 @@ export const index = ({ UserData, updateUserData }) => {
 
 
   useEffect(() => {
-    if (!UserData.username) updateUserData();
+    if (!UserData.username) {
+      getPlansData()
+      updateUserData()
+    };
     const interval = setInterval(() => {
       setSlideIndex((prevIndex) =>
         prevIndex < (banners.length - 1) ? prevIndex + 1 : 0
@@ -212,6 +215,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     updateUserData: () => dispatch(setUserData()),
+    getPlansData: () => dispatch(getPlansData())
   };
 };
 

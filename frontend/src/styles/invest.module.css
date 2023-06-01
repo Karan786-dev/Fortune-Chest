@@ -1,0 +1,74 @@
+.container {
+    font-family: Poppins;
+    letter-spacing: 0em;
+
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 7vh;
+    background-color: rgb(249 233 233);
+}
+
+.header p {
+    font-weight: 600;
+    color: #383838;
+}
+
+.section_1 {
+    background: #FF6108;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+}
+
+.section_1 p {
+    text-align: left;
+    color: white;
+    font-weight: 500;
+    margin-left: 2vw;
+}
+
+.plans_container {
+    height: 88vh;
+    background: #EFEFEF;
+}
+
+.plan_container {
+    height: 18vh;
+}
+
+.plan_container_2 {
+    padding: 2vh;
+    display: flex;
+}
+
+.plan_logo_container img {
+    width: 11vh;
+    height: 11vh;
+}
+
+.plan_details_container {
+    padding: 0vw 4vw 1.5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.plan_name {
+    font-weight: 600;
+}
+
+.plan_prices {
+    font-weight: 600;
+    font-size: 5vw;
+    color: #F25B0F;
+
+}
+
+.plan_container hr {
+    border: 1px dashed #C8C3C3;
+}

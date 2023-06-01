@@ -15,7 +15,7 @@ export default function PagesFooter() {
         </div>
         {/* Plans button */}
         <div className={`${styles.icon} ${pathname == '/dashboard/invest' ? `${styles['active-icon']}` : ''}`}>
-          <Link href="/dashboard/invest"><i className={`bi bi-graph-up-arrow${pathname == '/dashboard/invest' ? '-fill' : ''}`}></i></Link>
+          <Link href="/dashboard/invest"><i className={`bi bi-bar-chart${pathname == '/dashboard/invest' ? '-fill' : ''}`}></i></Link>
         </div>
         {/* Refer Page Button */}
         <div className={`${styles.icon} ${pathname == '/dashboard/refer' ? `${styles['active-icon']}` : ''}`}>
