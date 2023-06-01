@@ -25,11 +25,11 @@ export const invest = ({ getPlansData, plansData }) => {
                             }} className={`${styles.plan_container} move_from_down`}>
                                 <div className={styles.plan_container_2}>
                                     <div className={styles.plan_logo_container}>
-                                        <Image height={32} width={32} src={`data:image/${planData.image.ext};base64,${planData.image.data}`} />
+                                        <Image height={32} alt='Image' width={32} src={`data:image/${planData.image.ext};base64,${planData.image.data}`} />
                                     </div>
                                     <div>
                                         <div className={styles.plan_details_container}>
-                                            <p className={styles.plan_name}>Fortune Chest&nbsp;-&nbsp;Plan&nbsp;{index + 1}</p>
+                                            <p className={styles.plan_name}>Fortune&nbsp;Chest&nbsp;-&nbsp;Plan&nbsp;{index + 1}</p>
                                             <p className={styles.plan_prices}>₹{planData.minimum}&nbsp;-&nbsp;₹{planData.maximum}</p>
                                         </div>
                                     </div>

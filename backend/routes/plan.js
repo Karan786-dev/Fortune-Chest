@@ -65,10 +65,10 @@ router.post(
         }
       }
       //Converting Numbers values to float type to prevent errors in future
-      for (i in dataToInsert) {
-        let value = dataToInsert[i]
+      for (i in Object.keys(dataToInsert)) {
         let key = Object.keys(dataToInsert)[i]
-        dataToInsert[key] = Number.isNaN(value) ? value : parseFloat(value)
+        let value = dataToInsert[key]
+        dataToInsert[key] = isNaN(value) ? value : parseFloat(value)
       }
       const insertedData = await db.collection("plans").insertOne(dataToInsert);
       dataToInsert._id = insertedData.insertedId.toString();
