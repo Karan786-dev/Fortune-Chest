@@ -14,6 +14,7 @@ import PagesFooter from '../../Components/PagesFooter'
 import Image from "next/image";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import getPlansData from "@/Store/Actions/getPlansData";
 
 
 export const index = ({ UserData, updateUserData, getPlansData }) => {
@@ -215,7 +216,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     updateUserData: () => dispatch(setUserData()),
-    getPlansData: () => dispatch(getPlansData())
+    getPlansData: () => dispatch(getPlansData()
   };
 };
 
