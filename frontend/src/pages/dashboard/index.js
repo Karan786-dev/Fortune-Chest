@@ -216,7 +216,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     updateUserData: () => dispatch(setUserData()),
-    getPlansData: () => dispatch(getPlansData()
+    getPlansData: () => dispatch(getPlansData())
   };
 };
 
