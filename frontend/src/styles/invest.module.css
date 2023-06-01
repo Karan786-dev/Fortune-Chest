@@ -32,8 +32,9 @@
 }
 
 .plans_container {
-    height: 88vh;
+    height: 82vh;
     background: #EFEFEF;
+    overflow: auto;
 }
 
 .plan_container {

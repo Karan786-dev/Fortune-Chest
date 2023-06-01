@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 export const Plan = (props) => {
   return (
-    <div>[id]</div>
+    <div>Hello World</div>
   )
 }
 

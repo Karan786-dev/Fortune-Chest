@@ -4,12 +4,14 @@ import styles from '../../styles/invest.module.css'
 import { connect } from 'react-redux'
 import Image from 'next/image'
 import Footer from '../../Components/PagesFooter'
+import { useRouter } from 'next/router'
+
 
 export const invest = ({ getPlansData, plansData }) => {
     useEffect(() => {
         getPlansData()
     }, [])
-
+    let router = useRouter()
     return (
         <>
             <div className={styles.container}>
@@ -18,7 +20,9 @@ export const invest = ({ getPlansData, plansData }) => {
                 <div className={styles.plans_container}>
                     {plansData.map((planData, index) => {
                         return (
-                            <div key={index} className={styles.plan_container}>
+                            <div key={index} onClick={() => {
+                                router.push('/chest/' + planData._id.toString())
+                            }} className={`${styles.plan_container} move_from_down`}>
                                 <div className={styles.plan_container_2}>
                                     <div className={styles.plan_logo_container}>
                                         <Image height={32} width={32} src={`data:image/${planData.image.ext};base64,${planData.image.data}`} />
