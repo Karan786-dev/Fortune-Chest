@@ -264,7 +264,8 @@ router.post("/getAll", async (req, res) => {
 // ROUTE 5: POST /api/plan/get/:id
 router.post("/get/:id", async (req, res) => {
   try {
-    const id = req.params.id;
+    const id = req.params.id
+    console.log(id)
     if (!ObjectId.isValid(id)) {
       return res.status(400).send({ message: "Invalid plan id", code: 'INCORRECT_PARAMS' });
     }

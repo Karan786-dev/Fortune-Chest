@@ -80,7 +80,6 @@ exports.add_plans_reward_in_users_accounts = async (day) => {
       let days_left_in_db = user_data.plan.days_left;
       let plan_data = plans_object[user_data.plan.id]; // Plan id from user data, field plan.id
       let reward =
-        user_data.plan.amount +
         (user_data.plan.amount * plan_data.profit) / 100; // Profit to be added in user account
       let updatedData = await db
         .collection("accounts")
@@ -88,7 +87,7 @@ exports.add_plans_reward_in_users_accounts = async (day) => {
           { _id: user_data._id },
           { $inc: { balance: +parseFloat(reward), "plan.days_left": -1 } }
         ); // Added reward
-      db.collection('transactions').insertOne({user_id:updatedData._id,type:'credited',amount:parseFloat(reward),reason:'Comission/Profit from plan',time:new Date(),code:'CHEST_COMMISSION'})
+      db.collection('transactions').insertOne({ user_id: updatedData._id, type: 'credited', amount: parseFloat(reward), reason: 'Comission/Profit from plan', time: new Date(), code: 'CHEST_COMMISSION' })
       // Sending mail to user
       let mailBody = `Dear investor,\n\nYour daily profit has arrived.\n\nPlan Details:\n`;
       if (updatedData.plan.days_left > 0) {
