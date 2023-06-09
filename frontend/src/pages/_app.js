@@ -6,20 +6,20 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "react-redux";
 import store from "../Store";
+import Loading from '@/Components/Loading'
 
 function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
+      <Loading />
       <ToastContainer
         position="top-right"
         autoClose={2000}
         hideProgressBar={false}
         newestOnTop={true}
         closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
+        rtl={false} ssd
         draggable
-        pauseOnHover
         theme="light"
       />
       <Component {...pageProps} />

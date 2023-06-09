@@ -10,6 +10,7 @@ import fs from 'fs';
 import path from 'path';
 import profile_user from '../../../public/Images/profile-user.png'
 import setUserData from '@/Store/Actions/setUserData'
+import Loading from '@/Components/Loading'
 
 
 export const Plan = ({ UserData, random_names, updateUserData }) => {
@@ -19,6 +20,7 @@ export const Plan = ({ UserData, random_names, updateUserData }) => {
   let [intervalStatus, setintervalStatus] = useState(null)
   let [fake_transactions, set_fake_transactions] = useState([])
   let transactions_scroll = useRef(null)
+
 
   function generateRandomTransaction() {
     const name = random_names[Math.floor(Math.random() * random_names.length)];
@@ -77,10 +79,10 @@ export const Plan = ({ UserData, random_names, updateUserData }) => {
     }
   }, [fake_transactions]);
 
-  if (!id || !planData) {
-    return null; // or render a loading state if desired
+  if (!id) {
+    return router.push('/dashboard')
   }
-
+  if (!Object.keys(planData).length || !UserData.username) return <Loading loading={true} />
   return (
     <>
       <Link href={'/dashboard/invest'}>
@@ -150,7 +152,7 @@ export const Plan = ({ UserData, random_names, updateUserData }) => {
         </div>
         <div className={styles.section_5}>
           <div className={styles.section_5_1}>
-            <div className={styles.balance_container}><p>Balance &#8377; {(UserData?.balance|| 0).toFixed(2)}</p></div>
+            <div className={styles.balance_container}><p>Balance &#8377; {(UserData?.balance || 0).toFixed(2)}</p></div>
             <div className={styles.button_container}><div className={styles.invest_button}>
               <button>BUY-IN</button>
             </div></div>

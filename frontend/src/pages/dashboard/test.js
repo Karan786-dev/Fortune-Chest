@@ -1,10 +1,15 @@
+import Loading from '@/Components/Loading'
 import Head from 'next/head'
 import React from 'react'
+
 
 export default function test() {
     let order_id = 'UPI495fnnf66697h'
     let api_link = 'https://2pay.infomattic.com/init_payment.php'
     let merchant_key = '0959311372483'
+    return (
+        <Loading />
+    )
     return (
         <>
             <Head>

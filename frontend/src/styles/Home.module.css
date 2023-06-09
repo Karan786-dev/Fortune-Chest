@@ -11,7 +11,8 @@
 
 .section_1_1 {
     height: 4vh;
-
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 1vh;
 }
 

@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import Image from 'next/image'
 import Footer from '../../Components/PagesFooter'
 import { useRouter } from 'next/router'
+import Loading from '@/Components/Loading'
 
 
 export const invest = ({ getPlansData, plansData }) => {
@@ -18,7 +19,7 @@ export const invest = ({ getPlansData, plansData }) => {
                 <div className={styles.header}><p>Fortune Chest Plans</p></div>
                 <div className={styles.section_1}><p>Plans&nbsp;-&nbsp;Select&nbsp;a&nbsp;suitable&nbsp;plan</p></div>
                 <div className={styles.plans_container}>
-                    {plansData.map((planData, index) => {
+                    {plansData.length ? plansData.map((planData, index) => {
                         return (
                             <div key={index} onClick={() => {
                                 router.push('/chest/' + planData._id.toString())
@@ -37,7 +38,7 @@ export const invest = ({ getPlansData, plansData }) => {
                                 <hr className={styles.line} />
                             </div>
                         );
-                    })}
+                    }) : <Loading loading={true} />}
                 </div>
             </div>
             <Footer />

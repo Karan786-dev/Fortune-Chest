@@ -5,6 +5,7 @@
     height: 6vh;
     background-color: rgb(255, 123, 0);
     animation: move_from_down 2s;
+    z-index: 99;
 }
 
 .container>div {
