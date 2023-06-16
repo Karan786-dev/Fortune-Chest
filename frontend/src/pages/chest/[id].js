@@ -25,7 +25,7 @@ export const Plan = ({ UserData, random_names, updateUserData }) => {
   function generateRandomTransaction() {
     const name = random_names[Math.floor(Math.random() * random_names.length)];
     const amount = Math.floor(Math.random() * (parseFloat(planData.maximum) - parseFloat(planData.minimum) + 1)) + parseFloat(planData.minimum);
-    const profit = ((((amount * parseFloat(planData.profit)) / 100) * amount) + amount).toFixed(2)
+    const profit = (((amount * parseFloat(planData.profit)) / 100) * amount).toFixed(2)
     console.log(profit, amount)
     return {
       name,
@@ -71,7 +71,6 @@ export const Plan = ({ UserData, random_names, updateUserData }) => {
 
 
   useEffect(() => {
-    console.log(fake_transactions)
     if (transactions_scroll.current) {
       setTimeout(() => {
         transactions_scroll.current.scrollTo(0, transactions_scroll.current.scrollHeight);
@@ -115,6 +114,10 @@ export const Plan = ({ UserData, random_names, updateUserData }) => {
               <div>
                 <p>Investment amount between:</p>
                 <p>&#8377;{planData.minimum}-&#8377;{planData.maximum}</p>
+              </div>
+              <div>
+                <p>Refer Commision:</p>
+                <p>{planData.commision || 0}%</p>
               </div>
               <div>
                 <p>Income:</p>

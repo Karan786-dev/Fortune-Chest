@@ -1,7 +1,6 @@
 .container {
     font-family: Poppins;
     letter-spacing: 0em;
-
 }
 
 .header {
@@ -38,21 +37,24 @@
 }
 
 .plan_container {
-    height: 18vh;
+    min-height: 18vh;
 }
 
 .plan_container_2 {
     padding: 2vh;
     display: flex;
+    align-items: center;
 }
 
 .plan_logo_container img {
     width: 11vh;
     height: 11vh;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .plan_details_container {
-    padding: 0vw 4vw 1.5vh;
+    padding: 0vw 2vw 1.5vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -61,15 +63,44 @@
 
 .plan_name {
     font-weight: 600;
+    font-size: 16px;
 }
 
 .plan_prices {
     font-weight: 600;
-    font-size: 5vw;
+    font-size: 4vw;
     color: #F25B0F;
-
 }
 
 .plan_container hr {
     border: 1px dashed #C8C3C3;
+}
+
+/* Responsive Modifications */
+
+@media (min-width: 768px) {
+    .header p {
+        font-size: 14px;
+    }
+
+    .section_1 p {
+        font-size: 12px;
+    }
+
+    .plan_container_2 {
+        flex-wrap: wrap;
+    }
+
+    .plan_details_container {
+        width: 70%;
+        padding: 2vh;
+    }
+
+    .plan_name {
+        font-size: 16px;
+    }
+
+    .plan_prices {
+        font-size: 2vw;
+    }
 }

@@ -16,10 +16,13 @@ import PagesFooter from '../../Components/PagesFooter';
 import setUserData from '@/Store/Actions/setUserData';
 import getPlansData from '@/Store/Actions/getPlansData';
 import Loading from '@/Components/Loading';
+import { useRouter } from 'next/router';
+
 
 const index = ({ UserData, updateUserData, getPlansData }) => {
   const [slideIndex, setSlideIndex] = useState(0);
   const slidesRef = useRef(null);
+  let router = useRouter()
   const banners = [
     {
       image: banner_2,
@@ -139,6 +142,7 @@ const index = ({ UserData, updateUserData, getPlansData }) => {
   };
 
   useEffect(() => {
+    if(!localStorage.getItem('token')) router.push('/login')
     if (!UserData.username) {
       getPlansData();
       updateUserData();
@@ -154,7 +158,7 @@ const index = ({ UserData, updateUserData, getPlansData }) => {
   useEffect(() => {
     if (slidesRef?.current) showSlides();
   }, [slideIndex]);
-  if (!UserData.username) return <Loading loading={true} />;
+  // if (!UserData.username) return <Loading loading={true} />;
   return (
     <>
       <div className={styles.container}>

@@ -216,20 +216,18 @@ router.post(
         message: `Plan activated on account ${user_data._id.toString()}`,
       });
       //Adding commission to inviter if exists
-      if (req.user.data.inviteCode && plan_data.commision) {
-        let inviteCode =
-          typeof req.user.data.inviteCode == "string"
-            ? new ObjectId(req.user.data.inviteCode)
-            : req.user.data.inviteCode; //Invite code is inviter _id
+      if (req.user.data.invitedBy && plan_data.commision) {
+        let invitedBy =
+          req.user.data.invitedBy; //Invite code is inviter _id
         let commision = parseFloat(plan_data.commision) || 0;
         let inviter_data = await db
           .collection("accounts")
           .findOneAndUpdate(
-            { _id: inviteCode },
+            { inviteCode: invitedBy },
             { $inc: { balance: +((parseFloat(amount) * commision) / 100) } }
           );
         await db.collection("transactions").insertOne({
-          user_id: inviteCode,
+          user_id: inviter_data._id,
           amount: (parseFloat(amount) * commision) / 100,
           type: "credited",
           reason: "Referall Comsission",

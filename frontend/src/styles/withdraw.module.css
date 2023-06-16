@@ -197,3 +197,23 @@
     width: 60vw;
     height: 5vh;
 }
+
+
+@media (min-width: 768px) {
+    .amount_button {
+        height: 7vh;
+        width: 10vw;
+    }
+
+    .detail {
+        font-size: 1.4vw !important;
+    }
+
+    .label {
+        font-size: 0.8vw !important;
+    }
+
+    .bank_card {
+        height: 30vh;
+    }
+}

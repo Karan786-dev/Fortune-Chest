@@ -100,14 +100,15 @@
     }
 }
 
+
+
+/* SECTION 2 */
+
 .speaker_icon {
     text-align: center;
     color: white;
     font-size: 4vw;
 }
-
-
-/* SECTION 2 */
 
 .section_2 {
     background-color: whitesmoke;
@@ -193,13 +194,13 @@
 }
 
 .section_3_3 {
-    background-image: url('/Images/pic_1.png');
+    background-image: url(/Images/pic_1.png);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     width: 80%;
-    height: 75%;
-    margin: 2vh;
+    height: 100%;
+    margin-left: 2vh;
     border-radius: 4vw;
 }
 
@@ -216,10 +217,7 @@
 }
 
 .section_3_4 {
-    height: 75%;
     width: 50%;
-    margin: 2vh;
-
 }
 
 .section_3_4 p {
@@ -232,7 +230,7 @@
 }
 
 .section_3_5 {
-    height: 49%;
+    height: 48%;
     background-image: url('/Images/pic_2.png');
     background-size: cover;
     background-repeat: no-repeat;
@@ -245,7 +243,7 @@
 
 .section_3_6 {
     border-radius: 4vw;
-    height: 49%;
+    height: 48%;
     margin-top: 2%;
     background-image: url('/Images/pic_3.png');
     background-size: cover;
@@ -257,6 +255,8 @@
 }
 
 /* Section 4 */
+;
+
 .section_4 {
     width: 100%;
     height: 27vh;
@@ -354,4 +354,77 @@
     margin: 0;
     color: red;
     font-size: 2vh;
+}
+
+
+@media (min-width: 768px) {
+    .section_1_1 {
+        height: 8vh;
+    }
+
+    .section_1_1 img {
+        width: 8vh;
+    }
+
+    .profile_3 p {
+        font-size: 30px;
+    }
+
+    .banner_image {
+        height: 43vh;
+    }
+
+    .container {
+        margin: 0;
+    }
+
+    .speaker_icon {
+        font-size: 2vw;
+    }
+
+    .scrolling_text p {
+        font-size: 2vw;
+
+    }
+
+    .scrolling_text {
+        height: 3vw;
+    }
+
+
+    .section_3 {
+        height: 32vh;
+        display: flex;
+        justify-content: center;
+
+    }
+
+    .paragraph_container {
+        height: 80%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-left: 2vw;
+        font-size: 2vw;
+    }
+
+    .section_3_5,
+    .section_3_6 {
+        width: 25.5vw;
+    }
+
+
+
+    /* Section 4 */
+    .section_4 {
+        height: 40vh;
+    }
+
+    .section_4_1 {
+        height: 70%;
+    }
+
+    .transaction_profile {
+        width: 11vh;
+    }
 }

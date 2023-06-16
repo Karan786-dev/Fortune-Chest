@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { db } = require("..");
-const { generate_otp, send_message, send_mail } = require("../functions");
+const { generate_otp, send_message, send_mail, generateRandomString } = require("../functions");
 const router = Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
@@ -11,7 +11,7 @@ let users = {};
 //ROUTE 1: POST /api/auth/register
 router.post("/register", async (req, res) => {
   try {
-    let { phone, password, inviteCode, username, email } = req.body;
+    let { phone, password,  username, email } = req.body;
     if (!phone || !password || !username || !email) {
       return res.status(400).send({ message: "Information is not completed", code: 'INCORRECT_PARAMS' });
     }
@@ -77,6 +77,8 @@ router.post("/verifyOTP", async (req, res) => {
       salt
     );
     users[email].password = password_hash;
+    users[email].inviteCode = generateRandomString(6)
+
     let insertedData = await db.collection("accounts").insertOne(users[email]);
     const id = insertedData.insertedId.toString();
     const data = {
@@ -99,16 +101,14 @@ router.post("/verifyOTP", async (req, res) => {
         code: 'SIGNUP_BONUS'
       });
     }
-    if (users[email].inviteCode && adminData?.per_refer) {
+    if (users[email].invitedBy && adminData?.per_refer) {
       //Invite code is user _id
-      if (users[email].inviteCode.length == 12) {
-        var inviteCode =
-          typeof users[email].inviteCode == "string"
-            ? new ObjectId(users[email].inviteCode)
-            : users[email].inviteCode;
+      if (users[email].invitedBy.length == 12) {
+        var invitedBy =
+          users[email].invitedBy;
         let inviter_data = await db
           .collection("accounts")
-          .findOne({ _id: inviteCode });
+          .findOne({ inviteCode: invitedBy });
         if (inviter_data) {
           await db
             .collection("accounts")
@@ -261,7 +261,7 @@ router.post("/forget/token/:token", async (req, res) => {
       .send({ message: "Password reset succesfully", token: auth_token });
   } catch (error) {
     console.log(error);
-    res.status(401).send({ message: "Interval Server Error" ,code:'ERROR'});
+    res.status(401).send({ message: "Interval Server Error", code: 'ERROR' });
   }
 });
 
@@ -272,17 +272,17 @@ router.post("/resendOTP", async (req, res) => {
     if (!email)
       return res
         .status(400)
-        .send({ message: "Must send email in request body" ,code:'INCORRECT_PARAMS'});
+        .send({ message: "Must send email in request body", code: 'INCORRECT_PARAMS' });
     let data = users[email];
     if (!data)
-      return res.status(400).send({ message: "Please try to register again" ,code:'TRY_AGAIN'});
+      return res.status(400).send({ message: "Please try to register again", code: 'TRY_AGAIN' });
     let otp = generate_otp(4);
     users[email].otp = otp;
     send_mail(email, `Your verication code: ${users[email].otp.toString()}`);
     return res.status(200).send({ message: "Otp sended to email" });
   } catch (error) {
     console.log(error);
-    res.status(401).send({ message: "Interval Server Error" ,code:'ERROR'});
+    res.status(401).send({ message: "Interval Server Error", code: 'ERROR' });
   }
 });
 

@@ -14,7 +14,8 @@ a {
   outline-color: rgb(255, 123, 0);
 }
 
-.orange_button {
+.orange_button,
+.orange-button {
   width: 100%;
   border-radius: 20px;
   border: none;
@@ -23,7 +24,7 @@ a {
   font-weight: bold;
 }
 
-.orange_button:disabled{
+.orange_button:disabled {
   opacity: 0.5;
 }
 
