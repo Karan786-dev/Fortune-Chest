@@ -18,19 +18,16 @@
 }
 
 .section_1_1 .heading {
-    font-size: calc(2vh + 4vw);
+    font-size: 23px;
 }
 
 .section_1_3 .heading {
-    font-size: calc(1.5vh + 3vw);
+    font-size: 21px;
 }
 
-.section_1_3 .details {
-    font-size: calc(0.5vh + 4vw);
-}
 
 .image_container img {
-    height: 23vh;
+    height: 25.5vh;
     width: 47vh;
 }
 
@@ -47,7 +44,7 @@
 }
 
 .section_2 .container .label {
-    font-size: 3.5vh;
+    font-size: 20px;
     font-weight: 600;
 }
 
@@ -61,7 +58,7 @@
 .section_2 .container .input_container input {
     width: 56vw;
     padding-left: 5vw;
-    font-size: 3.5vh;
+    font-size: 20px;
     font-weight: 600;
     margin-left: 3vw;
     border-style: dashed;
@@ -70,7 +67,7 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     border-color: rgb(238, 54, 85);
-    height: 8vh;
+    height: 6.4vh;
 }
 
 
@@ -79,7 +76,7 @@
     border-top-right-radius: 3vw;
     border-bottom-right-radius: 3vw;
     border: 0;
-    height: 8.2vh;
+    height: 6.6vh;
     width: 12vw;
     background-image: linear-gradient(90deg, rgb(238, 54, 85), rgb(252, 67, 98), rgb(255, 123, 0));
 }

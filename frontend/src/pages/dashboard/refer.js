@@ -38,7 +38,7 @@ export const refer = ({ UserData, AdminData, UpdateAdminData, UpdateUserData }) 
                     <div className={styles.container}>
                         <div className={styles.label}><p>CODE</p></div>
                         <div className={styles.input_container}>
-                            <input type="text" className={styles.input} value={UserData.inviteCode || 'oeifuhfvbcnc'} />
+                            <input readOnly type="text" className={styles.input} value={UserData.inviteCode || 'oeifuhfvbcnc'} />
                             <CopyToClipboard onCopy={(text, result) => {
                                 if (result) { toast.success('Invitation Code Copied To Clipboard') } else {
                                     toast.error('There`s An Error While Coping Your Code, Please try Below Button')
@@ -52,7 +52,7 @@ export const refer = ({ UserData, AdminData, UpdateAdminData, UpdateUserData }) 
                         e.preventDefault()
                         navigator.share({
                             text: "Hey!! Join now Fortune Chest ,the biggest investment Company and earn a lot of profit just sitting on your bed",
-                            url: `https://fortune-chest/register/${UserData.inviteCode}`,
+                            url: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/register/${UserData.inviteCode}`,
                             title: "Fortune Chest",
                         })
                     }}>REFER NOW</button>
