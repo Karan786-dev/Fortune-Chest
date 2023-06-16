@@ -52,7 +52,7 @@ export const refer = ({ UserData, AdminData, UpdateAdminData, UpdateUserData }) 
                         e.preventDefault()
                         navigator.share({
                             text: "Hey!! Join now Fortune Chest ,the biggest investment Company and earn a lot of profit just sitting on your bed",
-                            url: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/register/${UserData.inviteCode}`,
+                            url: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/register?inviteCode=${UserData.inviteCode}`,
                             title: "Fortune Chest",
                         })
                     }}>REFER NOW</button>
