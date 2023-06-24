@@ -15,4 +15,4 @@ exports.mail = "emailapisender@gmail.com";
 exports.mail_password = "agkzflfvayjsaiwt";
 
 //Nextjs App Link where site is hosted
-exports.app_link = 'http://192.168.43.254:3000'
+exports.app_link = 'https://fortune-chest-production-278a.up.railway.app'
