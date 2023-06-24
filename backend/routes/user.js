@@ -120,4 +120,34 @@ router.post('/recharge', async (req, res) => {
   }
 })
 
+//ROUTE 5:POST /api/user/bind_bank
+router.post('/bind_bank', authUserorAdmin, async (req, res) => {
+  try {
+    let { number, holder, ifsc } = req.body;
+    if (!number || !holder || !ifsc) {
+      return res.status(400).send({
+        error: true,
+        message: "Please send (number, holder, ifsc) in the request body",
+        code: 'INVALID_PARAMS'
+      });
+    }
+    let id = req.user.id;
+    console.log(id)
+    await db.collection('accounts').findOneAndUpdate({ _id: new ObjectId(id) }, {
+      $set: {
+        bank: {
+          number,
+          holder,
+          ifsc
+        }
+      }
+    });
+    res.status(200).send({ message: 'Bank Details Updated' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Internal server error" });
+  }
+});
+
+
 module.exports = router;

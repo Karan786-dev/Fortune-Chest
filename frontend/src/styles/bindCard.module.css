@@ -1,0 +1,82 @@
+.header {
+    height: 6vh;
+    background-color: rgb(255, 123, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header p {
+    text-align: center;
+    width: 100%;
+    color: white;
+    font-weight: 600;
+}
+
+
+.main_container {
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    margin-top: 6vh;
+}
+
+.form_container {
+    display: flex;
+    justify-content: center;
+}
+
+.inputContainer {
+    margin-top: 1vh;
+    height: 11vh;
+}
+
+.ifsc_container div {
+    display: flex;
+    align-items: center;
+}
+
+.inputContainer p {
+    padding-left: 3vw;
+    text-transform: capitalize;
+    font-weight: 600;
+}
+
+
+.inputContainer input,
+.ifsc_container div input {
+    font-weight: 600;
+    z-index: 2;
+    padding-left: 2vw;
+    width: 80vw;
+    height: 52%;
+    text-transform: capitalize;
+}
+
+.ifsc_container div {
+    height: 52%;
+}
+
+.ifsc_container div input {
+    height: 100%;
+}
+
+.verify_button {
+    position: absolute;
+    right: 10vw;
+    border: 0;
+    background: none;
+    color: rgb(255, 94, 0);
+    font-weight: 600;
+    z-index: 3;
+}
+
+.submit_button_container {
+    margin-top: 2vh;
+    height: 5.7vh;
+
+}
+
+.submit_button {
+    height: 100%;
+}
