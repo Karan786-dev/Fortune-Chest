@@ -127,9 +127,8 @@ export default function Register() {
               />
               <i
                 onClick={() => showPassword(passwordShowing ? false : true)}
-                className={`bi ${
-                  passwordShowing ? "bi-eye-slash-fill" : "bi-eye-fill "
-                } ${styles.icon2}`}
+                className={`bi ${passwordShowing ? "bi-eye-slash-fill" : "bi-eye-fill "
+                  } ${styles.icon2}`}
               ></i>
             </div>
             <div className={`mt-2 ${styles.inputContainer}`}>
@@ -139,7 +138,7 @@ export default function Register() {
                 id="inviteCode"
                 name="inviteCode"
                 className={`orange_input ${styles.input}`}
-                disabled={inviteCode ? true : false}
+                disabled={(router.query.inviteCode || inviteCode) ? true : false}
                 value={FormData.inviteCode}
                 onChange={inputChange}
                 placeholder="Referral Code"
