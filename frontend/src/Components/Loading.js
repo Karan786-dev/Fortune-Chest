@@ -5,7 +5,7 @@ import loading_gif from '../../public/Gif/loading.gif'
 import styles from '../styles/loading.module.css'
 export const Loading = (props) => {
     return (props.loading_redux || props.loading) && (
-        <div className={styles.container}>
+        <div className={styles.container} style={props.styles || {}}>
             {/* <Image src={loading_gif} /> */}
             <div class={styles['dot-floating']}></div>
         </div>

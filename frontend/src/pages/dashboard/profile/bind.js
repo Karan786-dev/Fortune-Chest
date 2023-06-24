@@ -47,7 +47,7 @@ function bind({ UserData, UpdateUserData }) {
       update_bank_details(UserData.bank)
     }
   }, [UserData])
-  if (!UserData) return <Loading />
+  if (!UserData) return <Loading loading={true} />
   return (
     <>
       <div className={styles.container}>

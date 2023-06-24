@@ -10,5 +10,5 @@
 }
 
 .move_from_down {
-    animation: move_from_down 1s !important;
+    animation: move_from_down 1s;
 }

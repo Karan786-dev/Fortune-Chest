@@ -23,7 +23,7 @@ export const invest = ({ getPlansData, plansData }) => {
                         return (
                             <div key={index} onClick={() => {
                                 router.push('/chest/' + planData._id.toString())
-                            }} className={`${styles.plan_container} move_from_down`}>
+                            }} className={`${styles.plan_container} move_from_down`} style={{ animationDuration: index + 2 + 's' }}>
                                 <div className={styles.plan_container_2}>
                                     <div className={styles.plan_logo_container}>
                                         <Image height={32} alt='Image' width={32} src={`data:image/${planData.image.ext};base64,${planData.image.data}`} />
@@ -38,7 +38,7 @@ export const invest = ({ getPlansData, plansData }) => {
                                 <hr className={styles.line} />
                             </div>
                         );
-                    }) : <Loading loading={true} />}
+                    }) : <Loading loading={true} styles={{ height: '82vh' }} />}
                 </div>
             </div>
             <Footer />
