@@ -7,7 +7,7 @@ export default (quary, data) => {
     if (data) return dispatch({ type: 'UPDATE_TRANSACTIONS', payload: data })
     axios
       .post(
-        `${process.env.NEXT_PUBLIC_API}/api/user/getTransaction`,
+        `${process.env.NEXT_PUBLIC_API}/api/user/getTransactions`,
         { quary: quary || null },
         { headers: { "auth-token": localStorage.getItem("token") } }
       )

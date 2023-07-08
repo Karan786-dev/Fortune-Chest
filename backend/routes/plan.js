@@ -157,8 +157,9 @@ router.post(
   checkBan,
   async (req, res) => {
     try {
-      const { plan_id, amount } = req.params;
-      if (!plan_id || Number.isNaN(amount))
+      const { plan_id } = req.params;
+      const { amount } = req.body
+      if (!plan_id || isNaN(amount || null))
         return res.status(400).send({ message: "Must provide Valid params", code: 'INCORRECT_PARAMS' });
 
       let plan_data = await db.collection("plans").findOne({
@@ -179,15 +180,14 @@ router.post(
         });
       let user_data = req.user.data;
       let balance = parseFloat(user_data.balance || 0);
-
-      if (balance < parseFloat(amount || 0))
+      if (balance < parseFloat(amount))
         return res
           .status(400)
           .send({ message: "User account doesn't have enough balance", code: 'NOT_ENOUGH_BALANCE' });
 
       if (user_data.plan)
         return res
-          .status(200)
+          .status(400)
           .send({ message: "User already has an activated plan", code: 'PERMISSION_DENIED' });
 
       await db.collection("accounts").findOneAndUpdate(
@@ -211,6 +211,7 @@ router.post(
         reason: "Invested in a plan",
         code: 'INVEST_IN_CHEST',
         time: new Date(),
+        data: { plan_id: plan_data._id }
       });
       res.status(200).send({
         message: `Plan activated on account ${user_data._id.toString()}`,

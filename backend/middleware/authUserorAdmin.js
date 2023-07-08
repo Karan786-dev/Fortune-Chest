@@ -27,8 +27,8 @@ module.exports = async (req, res, next) => {
       try {
         decoded = jwt.verify(token, JWT_SECRET);
         // If token is verified with user secret, set user data in request object and call userDataToRequest middleware
+        console.log('Token Data',decoded)
         req.user = decoded;
-        console.log("hhh",req.user)
         await userDataToRequest(req, res, next);
       } catch (userErr) {
         // If token is not verified with user secret, return an error

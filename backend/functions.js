@@ -1,6 +1,7 @@
 const { default: axios } = require("axios");
-const { FULL2SMS_KEY, mail, mail_password } = require("./config");
+const { FULL2SMS_KEY, mail, mail_password, ADMIN_MAIL } = require("./config");
 var nodemailer = require("nodemailer");
+const { db } = require(".");
 
 exports.generate_otp = (length) => {
   const min = Math.pow(10, length - 1);
@@ -81,16 +82,18 @@ exports.add_plans_reward_in_users_accounts = async (day) => {
       .collection("accounts")
       .find({ plan: { $exists: true } })
       .toArray();
-
-    let plans_query = day ? { "plan.specific_days": { $in: [day] } } : {}; // Use an empty query to fetch all plans if day is not specified
+    console.log('Users with plans', users_with_plans)
+    let plans_query = day ? { "specific_days": { $in: [day] } } : { "specific_days": { $exists: false } }; // Use an empty query to fetch all plans if day is not specified
+    console.log(plans_query)
     let plans = await db.collection("plans").find(plans_query).toArray();
     let plans_object = {};
     // Convert plans array data into an object (plans_object) with _id of plan as key
     plans.forEach((plan) => {
-      plans_object[plan._id] = plan;
+      plans_object[plan._id.toString()] = plan;
     });
     let promises = users_with_plans.map(async (user_data) => {
       let days_left_in_db = user_data.plan.days_left;
+      console.log(plans_object)
       let plan_data = plans_object[user_data.plan.id]; // Plan id from user data, field plan.id
       let reward =
         (user_data.plan.amount * plan_data.profit) / 100; // Profit to be added in user account
@@ -100,17 +103,17 @@ exports.add_plans_reward_in_users_accounts = async (day) => {
           { _id: user_data._id },
           { $inc: { balance: +parseFloat(reward), "plan.days_left": -1 } }
         ); // Added reward
-      db.collection('transactions').insertOne({ user_id: updatedData._id, type: 'credited', amount: parseFloat(reward), reason: 'Comission/Profit from plan', time: new Date(), code: 'CHEST_COMMISSION' })
+      db.collection('transactions').insertOne({ user_id: user_data._id, type: 'credited', amount: parseFloat(reward), reason: 'Comission/Profit from plan', time: new Date(), code: 'CHEST_COMMISSION' })
       // Sending mail to user
       let mailBody = `Dear investor,\n\nYour daily profit has arrived.\n\nPlan Details:\n`;
-      if (updatedData.plan.days_left > 0) {
-        mailBody += `\tDays Left: ${updatedData.plan.days_left}\n`;
+      if ((days_left_in_db - 1) > 0) {
+        mailBody += `\tDays Left: ${(days_left_in_db - 1)}\n`;
       }
       mailBody += `\tProfit: ${plan_data.profit}% (${reward})\n\nYour commission has been added to your account.`;
       await this.send_mail(user_data.email, mailBody, "PROFIT ARRIVED");
 
       // If days left or period is updated to 0 then remove plan from user data and send an alert on email
-      if (updatedData.plan.days_left < 1) {
+      if ((days_left_in_db - 1) < 1) {
         await this.send_mail(
           user_data.email,
           `Dear investor,\n\nYour Plan with id ${plan_data._id.toString()} has expired.`,
@@ -141,3 +144,4 @@ exports.add_plans_reward_in_users_accounts = async (day) => {
     console.log(error);
   }
 };
+

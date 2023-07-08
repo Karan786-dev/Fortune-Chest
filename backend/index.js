@@ -23,6 +23,7 @@ client
     exports.db = db
     // Start the server
     require("./server");
+    require("./cron")
     console.log("Connected to MongoDB database");
   })
   .catch((err) => {

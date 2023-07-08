@@ -11,12 +11,14 @@ import path from 'path';
 import profile_user from '../../../public/Images/profile-user.png'
 import setUserData from '@/Store/Actions/setUserData'
 import Loading from '@/Components/Loading'
+import InvestModule from '@/Components/InvestModule'
 
 
 export const Plan = ({ UserData, random_names, updateUserData }) => {
   const router = useRouter()
   const { id } = router.query;
   const [planData, setPlanData] = useState({})
+  const [module, changeModule] = useState(false)
   let [intervalStatus, setintervalStatus] = useState(null)
   let [fake_transactions, set_fake_transactions] = useState([])
   let transactions_scroll = useRef(null)
@@ -77,13 +79,17 @@ export const Plan = ({ UserData, random_names, updateUserData }) => {
       }, 100);
     }
   }, [fake_transactions]);
-
+  const openModule = () => {
+    console.log('OkWorld')
+    changeModule(true)
+  }
   if (!id) {
     return router.push('/dashboard')
   }
   if (!Object.keys(planData).length || !UserData.username) return <Loading loading={true} />
   return (
     <>
+      {module && <InvestModule planData={planData} module={{ status: module, close: () => changeModule(false) }} />}
       <Link href={'/dashboard/invest'}>
         <div className={styles.backButtonContainer}>
           <i className="bi bi-arrow-90deg-right"></i>
@@ -100,9 +106,10 @@ export const Plan = ({ UserData, random_names, updateUserData }) => {
               <div className={styles.plan_details}>
                 <p className={styles.head}>{planData.period} Day, {planData.profit}%</p>
                 <div className={styles.more_details}>
-                  <p>Daily Profit: {planData.profit}%</p>
-                  <p>Time Period: {planData.period} Days</p>
+                  <p>Profit: {planData.profit}% of investment amount</p>
+                  <p>Receive Profit: {planData.period} Times</p>
                   <p>Investment Amount: {planData.minimum}-{planData.maximum} Rs</p>
+
                 </div>
               </div>
             </div>
@@ -121,8 +128,9 @@ export const Plan = ({ UserData, random_names, updateUserData }) => {
               </div>
               <div>
                 <p>Income:</p>
-                <p>{`(${planData.profit}%)`}X {planData.period} Days</p>
+                <p>{`(${planData.profit}%)`}X {planData.period}</p>
               </div>
+              {planData.specific_days && <div><p>Profit on:</p> <p>{planData.specific_days.map(day => { return `${day} ` })}</p></div>}
             </div>
           </div>
         </div>
@@ -157,7 +165,7 @@ export const Plan = ({ UserData, random_names, updateUserData }) => {
           <div className={styles.section_5_1}>
             <div className={styles.balance_container}><p>Balance &#8377; {(UserData?.balance || 0).toFixed(2)}</p></div>
             <div className={styles.button_container}><div className={styles.invest_button}>
-              <button>BUY-IN</button>
+              <button onClick={openModule}>BUY-IN</button>
             </div></div>
           </div>
         </div>
@@ -165,6 +173,7 @@ export const Plan = ({ UserData, random_names, updateUserData }) => {
     </>
   );
 }
+
 
 const mapStateToProps = (state) => ({
   UserData: state.userdata

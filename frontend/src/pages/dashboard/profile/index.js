@@ -45,8 +45,8 @@ export const profile = ({ transactions, updateTransactions, updateUserData, User
         updateUserData()
     }, [])
     useEffect(() => {
-        console.log(transactions)
         transactions.forEach(data => {
+            console.log(data)
             switch (data.code) {
                 case 'CHEST_COMMISSION':
                     change_chest_earning((chest_earning + parseFloat(data.amount)))

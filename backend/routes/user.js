@@ -80,24 +80,26 @@ router.post("/edit", authUserorAdmin, async (req, res) => {
 });
 
 //ROUTE 3:POST /api/user/getTransactions/:id  Pass user id if you are admin
-router.post("/getTransactions/:id", authUserorAdmin, async (req, res) => {
+router.post("/getTransactions/:id?", authUserorAdmin, async (req, res) => {
   try {
     const { quary } = req.body;
     if (req.is_admin && !ObjectId.isValid(req.params.id)) return res
       .status(400)
       .send({ message: "Please provide a valid user ID" });
     let final_quary = {}
-    for (i in Object.keys(quary)) {
-      let key = Object.keys(quary)[i]
-      let value = quary[key]
+    for (i in Object.keys(quary || {})) {
+      let key = Object.keys(quary || {})[i]
+      let value = (quary || {})[key]
       final_quary[key] = value
     }
-    final_quary[user] = req.user?._id || ObjectId(req.params.id)//To prevent user to get other user tranacstions
+
+    final_quary.user_id = new ObjectId(req.user?.id || req.params.id)//To prevent user to get other user transactions
+    console.log(final_quary)
     const transactions = await db
       .collection("transactions")
       .find(final_quary)
       .toArray();
-    res.status(200).send({ transactions });
+    res.status(200).send({data: transactions });
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Internal server error" });

@@ -1,8 +1,10 @@
-const { default: axios } = require("axios");
-const { toast } = require("react-toastify");
+import axios from "axios";
+import { toast } from "react-toastify";
+import Router from "next/router";
 
 const setUserData = (new_data) => (dispatch) => {
   if (new_data) return dispatch({ type: "USERDATA", payload: new_data });
+
   axios
     .post(
       `${process.env.NEXT_PUBLIC_API}/api/user/getAccount`,
@@ -13,14 +15,19 @@ const setUserData = (new_data) => (dispatch) => {
       dispatch({ type: "USERDATA", payload: result.data.data });
     })
     .catch((error) => {
-      switch (error?.response?.code) {
+      console.log(error?.response?.data?.code);
+      switch (error?.response?.data?.code) {
         case 'AUTH_ERROR':
-          toast.warn('Please try to login again')
-          localStorage.clear('token')
+          toast.warn('Please try to login again');
+          localStorage.clear('token');
+          break;
+        case 'ACCOUNT_NOT_EXIST':
+          toast.warn('Wrong auth token, please try to login again');
+          Router.push('/login');
           break;
         default:
-          console.log(error?.response?.message || error.message)
-          toast.warn(error?.response?.message || error.message)
+          console.log(error?.response?.data || error.message);
+          toast.warn(error?.response?.data?.message || error.message);
           break;
       }
     });
