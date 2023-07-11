@@ -82,9 +82,7 @@ exports.add_plans_reward_in_users_accounts = async (day) => {
       .collection("accounts")
       .find({ plan: { $exists: true } })
       .toArray();
-    console.log('Users with plans', users_with_plans)
     let plans_query = day ? { "specific_days": { $in: [day] } } : { "specific_days": { $exists: false } }; // Use an empty query to fetch all plans if day is not specified
-    console.log(plans_query)
     let plans = await db.collection("plans").find(plans_query).toArray();
     let plans_object = {};
     // Convert plans array data into an object (plans_object) with _id of plan as key
@@ -93,7 +91,6 @@ exports.add_plans_reward_in_users_accounts = async (day) => {
     });
     let promises = users_with_plans.map(async (user_data) => {
       let days_left_in_db = user_data.plan.days_left;
-      console.log(plans_object)
       let plan_data = plans_object[user_data.plan.id]; // Plan id from user data, field plan.id
       let reward =
         (user_data.plan.amount * plan_data.profit) / 100; // Profit to be added in user account

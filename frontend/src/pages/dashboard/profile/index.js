@@ -6,14 +6,6 @@ import { connect } from 'react-redux'
 import styles from '../../../styles/profile.module.css'
 import Image from 'next/image'
 import ellipse_2 from '../../../../public/Images/Ellipse_2.png'
-import cashout_card from '../../../../public/Images/cashout_card.png'
-import piggy_bank from '../../../../public/Images/piggy_bank.png'
-import help_photo from '../../../../public/Images/help.png'
-import info_photo from '../../../../public/Images/info.png'
-import connect_team from '../../../../public/Images/connect.png'
-import page_photo from '../../../../public/Images/page.png'
-import add_user from '../../../../public/Images/add_user.png'
-import right_arrow from '../../../../public/Images/right_arrow.png'
 import Link from 'next/link'
 import Footer from '../../../Components/PagesFooter.js'
 import { useRouter } from 'next/router'
@@ -45,19 +37,23 @@ export const profile = ({ transactions, updateTransactions, updateUserData, User
         updateUserData()
     }, [])
     useEffect(() => {
+        let var_chest_earning = 0
+        let var_team_earning = 0
         transactions.forEach(data => {
-            console.log(data)
             switch (data.code) {
                 case 'CHEST_COMMISSION':
-                    change_chest_earning((chest_earning + parseFloat(data.amount)))
+                    console.log(data)
+                    var_chest_earning += data.amount
                     break;
                 case 'REFER_BONUS':
                 case 'REFERALL_CHEST_COMMISSION':
-                    change_team_earning((team_earning + data.amount))
+                    var_team_earning += data.amount
                 default:
                     break;
             }
         });
+        change_chest_earning(var_chest_earning)
+        change_team_earning(var_team_earning)
     }, [transactions])
     return (
         <>

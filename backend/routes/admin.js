@@ -3,7 +3,7 @@ const { db } = require("..");
 const router = require("express").Router();
 
 //ROUTE 1: POST /api/admin/getAccounts
-router.post("/getAccounts", authAdmin, async (req, res) => {
+router.post("/getAccounts", authAdmin, async (req, res,next) => {
   try {
     let query = req.body; //Database query , i know its not a good idea but i cant do anything
     let accounts = await db
@@ -16,6 +16,7 @@ router.post("/getAccounts", authAdmin, async (req, res) => {
       message: `Found all accounts${query ? ` with ${query} Query` : ""}`,
       data: accounts,
     });
+    next()
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Internal server error" ,code:'ERROR'});
@@ -23,7 +24,7 @@ router.post("/getAccounts", authAdmin, async (req, res) => {
 });
 
 //ROUTE 2: POST /api/admin/editData
-router.post("/editData", authAdmin, async (req, res) => {
+router.post("/editData", authAdmin, async (req, res,next) => {
   try {
     let {
       per_refer,
@@ -82,6 +83,7 @@ router.post("/editData", authAdmin, async (req, res) => {
     res
       .status(200)
       .send({ message: "Admin data updated in database", updatedData });
+      next()
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Internal server error" ,code:'ERROR'});
@@ -90,7 +92,7 @@ router.post("/editData", authAdmin, async (req, res) => {
 
 
 //ROUTE 3: POST /api/admin/getData
-router.post('/getData', async (req, res) => {
+router.post('/getData', async (req, res,next) => {
   try {
     // Assuming you have the necessary imports and setup for connecting to the database
 
@@ -118,6 +120,7 @@ router.post('/getData', async (req, res) => {
 
 
     res.status(200).send({ message: 'Admin data received', data: data_in_response })
+    next()
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Internal server error" ,code:'ERROR'});

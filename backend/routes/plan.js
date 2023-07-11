@@ -7,6 +7,7 @@ const authUser = require("../middleware/authUser");
 const checkBan = require("../middleware/checkBan");
 const userDataToRequest = require("../middleware/userDataToRequest");
 const multerImage = require("../middleware/multerImage");
+const multipleRequestBlocker = require('../middleware/multipleRequestBlocker')
 const router = Router();
 const fs = require('fs');
 const path = require("path");
@@ -15,7 +16,7 @@ const path = require("path");
 router.post(
   "/create",
   multerImage.single("image"),
-  async (req, res) => {
+  async (req, res, next) => {
     try {
       const { profit, period, commision, specific_days, maximum, minimum } =
         req.body;
@@ -76,6 +77,7 @@ router.post(
         message: "New plan created",
         data: dataToInsert,
       });
+      next()
     } catch (error) {
       console.error(error);
       res.status(500).send({ message: "Internal server error", code: 'ERROR' });
@@ -84,7 +86,7 @@ router.post(
 );
 
 //ROUTE 2:POST /api/plan/delete
-router.post("/delete/:id", authAdmin, async (req, res) => {
+router.post("/delete/:id", authAdmin, async (req, res, next) => {
   try {
     let { id } = req.params;
     const { refund } = req.body;
@@ -143,6 +145,7 @@ router.post("/delete/:id", authAdmin, async (req, res) => {
 
       }
     }
+    next()
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: "Internal server error", code: 'INCORRECT_PARAMS' });
@@ -155,7 +158,8 @@ router.post(
   authUser,
   userDataToRequest,
   checkBan,
-  async (req, res) => {
+  multipleRequestBlocker,
+  async (req, res, next) => {
     try {
       const { plan_id } = req.params;
       const { amount } = req.body
@@ -242,6 +246,7 @@ router.post(
           "Commision"
         );
       }
+      next()
     } catch (error) {
       console.log(error);
       res.status(500).send({ message: "Internal server error", code: 'ERROR' });

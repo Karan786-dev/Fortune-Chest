@@ -21,6 +21,7 @@ http.listen(process.env.PORT || PORT, (error) => {
   console.log("Server listening on port:", process.env.PORT || PORT);
 });
 
+
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/plan', require('./routes/plan'));
 app.use('/api/user', require('./routes/user'));

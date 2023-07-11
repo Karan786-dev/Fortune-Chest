@@ -9,9 +9,9 @@ const { ObjectId } = require("mongodb");
 let users = {};
 
 //ROUTE 1: POST /api/auth/register
-router.post("/register", async (req, res) => {
+router.post("/register", async (req, res, next) => {
   try {
-    let { phone, password,  username, email } = req.body;
+    let { phone, password, username, email } = req.body;
     if (!phone || !password || !username || !email) {
       return res.status(400).send({ message: "Information is not completed", code: 'INCORRECT_PARAMS' });
     }
@@ -45,6 +45,7 @@ router.post("/register", async (req, res) => {
         res.status(401).send({ message: "Interval Server Error", code: 'ERROR' });
       });
     // console.log(users);
+    next()
   } catch (error) {
     console.log(error);
     res.status(401).send({ message: "Interval Server Error", code: 'ERROR' });
@@ -52,7 +53,7 @@ router.post("/register", async (req, res) => {
 });
 
 //ROUTE 2:POST /api/auth/verifyOtp
-router.post("/verifyOTP", async (req, res) => {
+router.post("/verifyOTP", async (req, res, next) => {
   try {
     let { email, otp } = req.body;
     if (!email || !otp)
@@ -132,6 +133,7 @@ router.post("/verifyOTP", async (req, res) => {
         }
       }
     }
+    next()
   } catch (error) {
     console.log(error);
     res.status(401).send({ message: "Interval Server Error", code: 'ERROR' });
@@ -139,7 +141,7 @@ router.post("/verifyOTP", async (req, res) => {
 });
 
 //ROUTE 3:POST /api/auth/login
-router.post("/login", async (req, res) => {
+router.post("/login", async (req, res, next) => {
   try {
     const { email, password, phone } = req.body;
     if ((!email && !phone) || !password) {
@@ -168,6 +170,7 @@ router.post("/login", async (req, res) => {
     };
     const token = jwt.sign(data, JWT_SECRET);
     res.status(200).send({ message: "Account found", token });
+    next()
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: "Internal Server Error", code: 'ERROR' });
@@ -175,7 +178,7 @@ router.post("/login", async (req, res) => {
 });
 
 //ROUTE 4:POST /api/auth/admin
-router.post("/admin", async (req, res) => {
+router.post("/admin", async (req, res, next) => {
   try {
     let { password } = req.body;
     if (!password)
@@ -189,6 +192,7 @@ router.post("/admin", async (req, res) => {
     } else {
       res.status(400).send({ message: "Incorrect Password", code: 'INVALID_PASSWORD' });
     }
+    next()
   } catch (error) {
     console.log(error);
     res.status(401).send({ message: "Interval Server Error", code: 'ERROR' });
@@ -197,7 +201,7 @@ router.post("/admin", async (req, res) => {
 
 //ROUTE 5:POST /api/auth/forget
 let verification_token = { 6557631048: "balkaransin888@gmail.com" };
-router.post("/forget", async (req, res) => {
+router.post("/forget", async (req, res, next) => {
   try {
     let { detail } = req.body;
     if (!detail)
@@ -221,6 +225,7 @@ router.post("/forget", async (req, res) => {
     res
       .status(200)
       .send({ message: `Reset link sended to email: ${user_data.email}` });
+    next()
   } catch (error) {
     console.log(error);
     res.status(401).send({ message: "Interval Server Error", code: 'ERROR' });
@@ -228,7 +233,7 @@ router.post("/forget", async (req, res) => {
 });
 
 //ROUTE 5:POST /api/auth/forget/token/{Token}
-router.post("/forget/token/:token", async (req, res) => {
+router.post("/forget/token/:token", async (req, res, next) => {
   try {
     const token = req.params.token;
     let { new_password } = req.body;
@@ -259,6 +264,7 @@ router.post("/forget/token/:token", async (req, res) => {
     res
       .status(200)
       .send({ message: "Password reset succesfully", token: auth_token });
+    next()
   } catch (error) {
     console.log(error);
     res.status(401).send({ message: "Interval Server Error", code: 'ERROR' });
@@ -266,7 +272,7 @@ router.post("/forget/token/:token", async (req, res) => {
 });
 
 //ROUTE 6:POST /api/auth/resendOTP
-router.post("/resendOTP", async (req, res) => {
+router.post("/resendOTP", async (req, res, next) => {
   try {
     let { email } = req.body;
     if (!email)
@@ -280,6 +286,7 @@ router.post("/resendOTP", async (req, res) => {
     users[email].otp = otp;
     send_mail(email, `Your verication code: ${users[email].otp.toString()}`);
     return res.status(200).send({ message: "Otp sended to email" });
+    next()
   } catch (error) {
     console.log(error);
     res.status(401).send({ message: "Interval Server Error", code: 'ERROR' });
