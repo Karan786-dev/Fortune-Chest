@@ -66,6 +66,7 @@ router.post("/edit/:info?", authUserorAdmin, async (req, res) => {
         newData.balance = parseFloat(balance);
         await db.collection("transactions").insertOne({
           user_id: user_data._id,
+          type: 'credited',
           amount: parseFloat(balance),
           reason: "By Admin",
           code: 'BYADMIN',
@@ -99,6 +100,7 @@ router.post("/edit/:info?", authUserorAdmin, async (req, res) => {
       updatedData = (await db
         .collection("accounts")
         .findOneAndUpdate({ _id: req.user?.is_admin ? new ObjectId(req.user.id) : user_data._id }, { $set: newData }, { returnOriginal: false })).value;
+      console.log(updatedData)
     }
     res.status(200).send({ message: "Data Updated", data: updatedData });
   } catch (error) {
