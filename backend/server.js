@@ -6,7 +6,10 @@ const cors = require("cors");
 const fs = require('fs');
 
 // Allow requests from all origins
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  optionsSuccessStatus: 200 // optional
+}));
 
 if (!fs.existsSync(path.join(__dirname, "images"))) {
   fs.mkdirSync(path.join(__dirname, "images"));

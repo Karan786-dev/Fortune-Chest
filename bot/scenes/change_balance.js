@@ -22,8 +22,9 @@ scene.on('message', (ctx) => {
     api.editAccount(api.GET_TOKEN(ctx.from.id), account_id, { balance: amount })
         .then((result) => {
             ctx.replyWithHTML(`<b>Balance updated to:</b> <code>${amount.toFixed(3)}</code>`)
+            ctx.scene.leave()
         })
-        .catch((error)=>{
+        .catch((error) => {
             ctx.reply('Something wrong happened')
             console.log(error)
         })
