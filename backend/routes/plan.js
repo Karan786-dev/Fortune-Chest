@@ -226,7 +226,7 @@ router.post(
           { inviteCode: invitedBy },
           { $inc: { balance: parseFloat(amount) * commision / 100 } },
           { returnOriginal: false }
-        );
+        ).value
         console.log(inviter_data)
         await db.collection("transactions").insertOne({
           user_id: inviter_data._id,
