@@ -222,11 +222,11 @@ router.post(
         let invitedBy =
           req.user.data.invitedBy; //Invite code is inviter _id
         let commision = parseFloat(plan_data.commision) || 0;
-        let inviter_data = await db.collection("accounts").findOneAndUpdate(
+        let inviter_data = (await db.collection("accounts").findOneAndUpdate(
           { inviteCode: invitedBy },
           { $inc: { balance: parseFloat(amount) * commision / 100 } },
           { returnOriginal: false }
-        ).value
+        )).value
         console.log(inviter_data)
         await db.collection("transactions").insertOne({
           user_id: inviter_data._id,
