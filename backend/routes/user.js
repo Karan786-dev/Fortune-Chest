@@ -61,7 +61,6 @@ router.post("/edit/:info?", authUserorAdmin, async (req, res) => {
           { phone: req.params.info },
         ]
       })
-      console.log(user_data)
       if (balance) {
         newData.balance = parseFloat(balance);
         await db.collection("transactions").insertOne({
@@ -78,7 +77,6 @@ router.post("/edit/:info?", authUserorAdmin, async (req, res) => {
         newData.password = password_hash;
       }
       if (block) {
-        console.log(block)
         await db
           .collection("accounts")
           .updateOne(
@@ -86,7 +84,6 @@ router.post("/edit/:info?", authUserorAdmin, async (req, res) => {
             { $set: { block: true } }
           );
       } else if (unblock) {
-        console.log(block)
         await db
           .collection("accounts")
           .updateOne(
@@ -96,11 +93,11 @@ router.post("/edit/:info?", authUserorAdmin, async (req, res) => {
       }
     }
     if (Object.keys(newData).length) {
-      await db
+      var updatedData = await db
         .collection("accounts")
-        .updateOne({ _id: req.user?.is_admin ? new ObjectId(req.user.id) : user_data._id }, { $set: newData });
+        .findOneAndUpdate({ _id: req.user?.is_admin ? new ObjectId(req.user.id) : user_data._id }, { $set: newData }, { returnOriginal: false });
     }
-    res.status(200).send({ message: "Data Updated" });
+    res.status(200).send({ message: "Data Updated", data: updatedData.value });
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Internal server error" });
