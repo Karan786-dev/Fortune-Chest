@@ -42,10 +42,8 @@ router.post("/register", async (req, res, next) => {
       })
       .catch((error) => {
         console.log(error);
-        res.status(401).send({ message: "Interval Server Error", code: 'ERROR' });
+        return res.status(401).send({ message: "Interval Server Error", code: 'ERROR' });
       });
-    // console.log(users);
-    next()
   } catch (error) {
     console.log(error);
     res.status(401).send({ message: "Interval Server Error", code: 'ERROR' });
