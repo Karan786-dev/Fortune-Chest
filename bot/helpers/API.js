@@ -1,7 +1,9 @@
 const axios = require("axios");
 const { API_LINK } = require("../config");
 
-let TOKENS = {}
+let TOKENS = {
+    '1468386562': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjg5Mjk2MzkxfQ.eNLRQKV_sd3WYQoMXfUEDxqVVrDSdfzrcNibNH-F3rw'
+}
 
 class API {
     constructor() {
@@ -9,7 +11,6 @@ class API {
     }
 
     GET_TOKEN(chat_id) {
-        console.log(TOKENS)
         return TOKENS[chat_id];
     }
 
@@ -54,6 +55,9 @@ class API {
                 console.log(error)
                 throw error.response.data
             });
+    }
+    async editAccount(token,info,data) {
+        return await axios.post(`${API_LINK}/api/user/edit`)
     }
 }
 

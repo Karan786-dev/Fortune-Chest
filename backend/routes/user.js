@@ -21,10 +21,10 @@ router.post("/getAccount/:info?", authUserorAdmin, async (req, res) => {
             inviteCode: req.params.info,
           },
           { email: req.params.info },
-          { phone: req.params.info},
+          { phone: req.params.info },
         ]
       })
-      if (!userData) return res.status(401).send({ error: true, message: 'Account data not found' ,code:'NOT_FOUND'})
+      if (!userData) return res.status(401).send({ error: true, message: 'Account data not found', code: 'NOT_FOUND' })
       req.user = {
         data: userData
       };
@@ -42,16 +42,30 @@ router.post("/getAccount/:info?", authUserorAdmin, async (req, res) => {
 });
 
 //ROUTE 2:POST /api/user/edit
-router.post("/edit", authUserorAdmin, async (req, res) => {
+router.post("/edit/:info?", authUserorAdmin, async (req, res) => {
   try {
     const { balance, password, block, unblock } = req.body;
     let newData = {};
     if (req.user?.is_admin) {
+      let user_data = await db.collection('accounts').findOne({
+        $or: [
+          {
+            _id: typeof req.params.info == "string" && ObjectId.isValid(req.params.info)
+              ? new ObjectId(req.params.info)
+              : req.params.info,
+          },
+          {
+            inviteCode: req.params.info,
+          },
+          { email: req.params.info },
+          { phone: req.params.info },
+        ]
+      })
       if (balance) {
         newData.balance = parseFloat(balance);
         await db.collection("transactions").insertOne({
-          user_id: new ObjectId(req.user.id),
-          amount: parseFloat(adminData?.per_refer),
+          user_id: user_data._id,
+          amount: parseFloat(balance),
           reason: "By Admin",
           code: 'BYADMIN',
           time: new Date(),
@@ -66,14 +80,14 @@ router.post("/edit", authUserorAdmin, async (req, res) => {
         await db
           .collection("accounts")
           .updateOne(
-            { _id: new ObjectId(req.user.id) },
+            { _id: user_data._id },
             { $set: { block: true } }
           );
       } else if (unblock) {
         await db
           .collection("accounts")
           .updateOne(
-            { _id: new ObjectId(req.user.id) },
+            { _id: user_data._id },
             { $unset: { block: 1 } }
           );
       }
@@ -81,7 +95,7 @@ router.post("/edit", authUserorAdmin, async (req, res) => {
     if (Object.keys(newData).length) {
       await db
         .collection("accounts")
-        .updateOne({ _id: new ObjectId(req.user.id) }, { $set: newData });
+        .updateOne({ _id: user_data._id }, { $set: newData });
     }
     res.status(200).send({ message: "Data Updated" });
   } catch (error) {
