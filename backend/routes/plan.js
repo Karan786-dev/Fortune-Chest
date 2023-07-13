@@ -217,9 +217,6 @@ router.post(
         time: new Date(),
         data: { plan_id: plan_data._id }
       });
-      res.status(200).send({
-        message: `Plan activated on account ${user_data._id.toString()}`,
-      });
       //Adding commission to inviter if exists
       if (req.user.data.invitedBy && plan_data.commision) {
         let invitedBy =
@@ -246,7 +243,10 @@ router.post(
           "Commision"
         );
       }
-      next()
+
+      res.status(200).send({
+        message: `Plan activated on account ${user_data._id.toString()}`,
+      });
     } catch (error) {
       console.log(error);
       res.status(500).send({ message: "Internal server error", code: 'ERROR' });
