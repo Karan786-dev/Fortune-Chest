@@ -1,3 +1,3 @@
-exports.BOT_TOKEN = "5710263139:AAF9awXUZEyec9DAh5Y6xxrUmky_jRChkgI"
+exports.BOT_TOKEN = "5710263139:AAHiyOQYegtePdLLXWJ9it0acEOkUE_BgWc"
 
-exports.API_LINK = "https://fortune-chest-production-278a.up.railway.app"
+exports.API_LINK = "https://23e8-54-159-199-136.ngrok-free.app"

@@ -1,22 +1,24 @@
 const axios = require("axios");
 const { API_LINK } = require("../config");
 
+let TOKENS = {}
+
 class API {
     constructor() {
         this.API = API_LINK;
-        this.TOKENS = {};
     }
 
     GET_TOKEN(chat_id) {
-        return this.TOKENS[chat_id];
+        console.log(TOKENS)
+        return TOKENS[chat_id];
     }
 
     async AUTH(password, chat_id) {
         return await axios
             .post(`${this.API}/api/auth/admin`, { password })
             .then((result) => {
-                this.TOKENS[chat_id] = result.data.token
-                setTimeout(() => delete this.TOKENS[chat_id], 60 * 60 * 1000)
+                TOKENS[chat_id] = result.data.token
+                setTimeout(() => delete TOKENS[chat_id], 60 * 60 * 1000)
                 return result.data;
             })
             .catch((error) => {
@@ -25,6 +27,7 @@ class API {
     }
 
     async getAllAccounts(token, query) {
+        console.log(token)
         return await axios
             .post(`${API_LINK}/api/admin/getAccounts`, query || {}, {
                 Headers: {

@@ -17,8 +17,11 @@ loginScene.on('message', (ctx) => {
             ctx.replyWithHTML('<b>Login success</b>')
         })
         .catch((error) => {
+            console.log(error)
             if (error.code == "INVALID_PASSWORD") {
                 ctx.replyWithHTML(`<b>Incorrect Password please try again /login</b>`)
+            }else {
+                ctx.reply(error.message || error.code)
             }
         });
     ctx.scene.leave()
