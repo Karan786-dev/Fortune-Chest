@@ -6,10 +6,10 @@ bot.command('/getAccount', (ctx) => {
     let info = ctx.message.text.split(' ')[1]
     api.getAccount(api.GET_TOKEN(ctx.from.id), info).then((result) => {
         let data = result.data
-        let text = `<b>User account found.</b>\n\n<b>DB id:</b> <code>${data._id}</code>\n<b>Email:</b> <code>${data.email}</code>\n<b>Phone:</b> <code>${data.phone}</code>\n<b>Username:</b> <code>${data.username}</code>\n<b>Invite Code:</b> <code>${data.inviteCode}</code>\n\n<b>Plan active:</b> <code>${data.plan ? 'Yes' : 'No'
+        let text = `<b>User account found.</b>\n\n<b>DB id:</b> <code>${data._id}</code>\n<b>Email:</b> <code>${data.email}</code>\n<b>Phone:</b> <code>${data.phone}</code>\n<b>Username:</b> <code>${data.username}</code>\n<b>Balance:</b> <code>${(data.balance || 0).toFixed(3)}</code>\n<b>Invite Code:</b> <code>${data.inviteCode}</code>\n\n<b>Plan active:</b> <code>${data.plan ? 'Yes' : 'No'
             }</code > `
         let markup = [
-            [{text:data.block?'Unblock':'Block',callback_data:`/blockAccount ${data._id} `+(data.block?'unblock':'block')}]
+            [{ text: data.block ? 'Unblock' : 'Block', callback_data: `/blockAccount ${data._id} ` + (data.block ? 'unblock' : 'block'), text: 'Change Balance', callback_data: '/change_balance ' + data._id }]
         ]
         if (data.invitedby) {
             markup.push([{ text: 'inviter data', callback_data: `/userData ${data.invitedby}` }])

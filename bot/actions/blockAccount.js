@@ -8,7 +8,7 @@ bot.action(/^\/blockAccount (.+)$/, (ctx) => {
         let user_id = ctx.match[1].split(' ')[0]
         let status = ctx.match[1].split(' ')[1]
         api.editAccount(api.GET_TOKEN(ctx.from.id), user_id, status == 'block' ? { block: true } : { unblock: true }).then((result) => {
-            console.log(result)
+            ctx.replyWithHTML(`<b>Account ${(status  == 'block')?'Blocked':'Unblocked'}</b>`)
         }).catch((error) => {
             console.log(error)
         })

@@ -45,9 +45,9 @@ router.post("/edit/:info?", authUserorAdmin, async (req, res) => {
   try {
     const { balance, password, block, unblock } = req.body;
     let newData = {};
-    console.log('Is Admin: ', req.is_admin)
+    let user_data
     if (req.is_admin) {
-      let user_data = await db.collection('accounts').findOne({
+      user_data = await db.collection('accounts').findOne({
         $or: [
           {
             _id: typeof req.params.info == "string" && ObjectId.isValid(req.params.info)
