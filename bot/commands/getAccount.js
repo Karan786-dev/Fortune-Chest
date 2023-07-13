@@ -12,9 +12,9 @@ bot.command('/getAccount', (ctx) => {
             [{ text: 'Change Balance', callback_data: '/change_balance ' + data._id }],
             [{ text: data.block ? 'Unblock' : 'Block', callback_data: `/blockAccount ${data._id} ` + (data.block ? 'unblock' : 'block') }]
         ]
-        if (data.invitedby) {
-            markup.push([{ text: 'inviter data', callback_data: `/userData ${data.invitedby}` }])
-            text += `\n<b>Invited By:</b> <code>${data.invitedby}</code>`
+        if (data.invitedBy) {
+            markup.push([{ text: 'inviter data', callback_data: `/userData ${data.invitedBy}` }])
+            text += `\n<b>Invited By:</b> <code>${data.invitedBy}</code>`
         }
         if (data.plan) {
             markup.push([{ text: 'Plan data', callback_data: `/plan ${data.plan.id}` }])
