@@ -10,6 +10,7 @@ bot.action(/^\/blockAccount (.+)$/, (ctx) => {
         let status = ctx.match[1].split(' ')[1]
         api.editAccount(api.GET_TOKEN(ctx.from.id), user_id, status == 'block' ? { block: true } : { unblock: true }).then((result) => {
             console.log(result)
+            return
             let accountText = generateAccountText(result.data)
             ctx.replyWithHTML(accountText.text, { reply_markup: { inline_keyboard: accountText.markup } })
         }).catch((error) => {

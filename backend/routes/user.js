@@ -92,12 +92,15 @@ router.post("/edit/:info?", authUserorAdmin, async (req, res) => {
           );
       }
     }
+    let response_object = { message: "Data Updated" }
     if (Object.keys(newData).length) {
       var updatedData = await db
         .collection("accounts")
         .findOneAndUpdate({ _id: req.user?.is_admin ? new ObjectId(req.user.id) : user_data._id }, { $set: newData }, { returnOriginal: false });
+      console.log(updatedData)
+      response_object.data = updatedData.value
     }
-    res.status(200).send({ message: "Data Updated", data: updatedData.value });
+    res.status(200).send(response_object);
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Internal server error" });
