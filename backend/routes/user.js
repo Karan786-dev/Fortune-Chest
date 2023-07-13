@@ -46,6 +46,7 @@ router.post("/edit/:info?", authUserorAdmin, async (req, res) => {
     const { balance, password, block, unblock } = req.body;
     let newData = {};
     let user_data
+    let updatedData = {}
     if (req.is_admin) {
       user_data = await db.collection('accounts').findOne({
         $or: [
@@ -77,30 +78,29 @@ router.post("/edit/:info?", authUserorAdmin, async (req, res) => {
         newData.password = password_hash;
       }
       if (block) {
-        await db
+        updatedData = (await db
           .collection("accounts")
-          .updateOne(
+          .findOneAndUpdate(
             { _id: user_data._id },
-            { $set: { block: true } }
-          );
+            { $set: { block: true } },
+            { returnOriginal: false }
+          )).value
       } else if (unblock) {
-        await db
+        updatedData = (await db
           .collection("accounts")
-          .updateOne(
+          .findOneAndUpdate(
             { _id: user_data._id },
-            { $unset: { block: 1 } }
-          );
+            { $unset: { block: 1 } },
+            { returnOriginal: false }
+          )).value
       }
     }
-    let response_object = { message: "Data Updated" }
     if (Object.keys(newData).length) {
-      var updatedData = await db
+      updatedData = (await db
         .collection("accounts")
-        .findOneAndUpdate({ _id: req.user?.is_admin ? new ObjectId(req.user.id) : user_data._id }, { $set: newData }, { returnOriginal: false });
-      console.log(updatedData)
-      response_object.data = updatedData.value
+        .findOneAndUpdate({ _id: req.user?.is_admin ? new ObjectId(req.user.id) : user_data._id }, { $set: newData }, { returnOriginal: false })).value;
     }
-    res.status(200).send(response_object);
+    res.status(200).send({ message: "Data Updated", data: updatedData });
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Internal server error" });
