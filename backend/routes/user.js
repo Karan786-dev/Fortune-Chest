@@ -6,16 +6,24 @@ const router = require("express").Router();
 
 
 //ROUTE 1:POST /api/user/getAccount
-router.post("/getAccount/:id?", authUserorAdmin, async (req, res) => {
+router.post("/getAccount/:info?", authUserorAdmin, async (req, res) => {
   try {
     //Remember to delete secret details from data we want to send
     if (req.is_admin)
       req.user = {
         data: await db.collection("accounts").findOne({
-          _id:
-            typeof req.params.id == "string"
-              ? new ObjectId(req.params.id)
-              : req.params.id,
+          $or: [
+            {
+              _id: typeof req.params.id == "string" && ObjectId.isValid(req.params.info)
+                ? new ObjectId(req.params.info)
+                : req.params.info,
+            },
+            {
+              inviteCode: req.params.id,
+            },
+            { email: req.params.info },
+            { phone: parseInt(req.params.info || 0) },
+          ]
         }),
       };
     let user_data = req.user.data;
@@ -99,7 +107,7 @@ router.post("/getTransactions/:id?", authUserorAdmin, async (req, res) => {
       .collection("transactions")
       .find(final_quary)
       .toArray();
-    res.status(200).send({data: transactions });
+    res.status(200).send({ data: transactions });
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Internal server error" });

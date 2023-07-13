@@ -30,7 +30,7 @@ class API {
         console.log(token)
         return await axios
             .post(`${API_LINK}/api/admin/getAccounts`, query || {}, {
-                Headers: {
+                headers: {
                     'admin-auth-token': token
                 }
             })
@@ -41,6 +41,7 @@ class API {
                 throw error.response.data
             });
     }
+    async 
 }
 
 module.exports = API 
