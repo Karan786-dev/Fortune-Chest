@@ -95,7 +95,7 @@ router.post("/edit/:info?", authUserorAdmin, async (req, res) => {
     if (Object.keys(newData).length) {
       await db
         .collection("accounts")
-        .updateOne({ _id: user_data._id }, { $set: newData });
+        .updateOne({ _id: req.user?.is_admin ? new ObjectId(req.user.id) : user_data._id }, { $set: newData });
     }
     res.status(200).send({ message: "Data Updated" });
   } catch (error) {

@@ -57,7 +57,7 @@ class API {
             });
     }
     async editAccount(token,info,data) {
-        return await axios.post(`${API_LINK}/api/user/edit`)
+        return await axios.post(`${API_LINK}/api/user/edit/${}`)
     }
 }
 
