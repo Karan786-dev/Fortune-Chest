@@ -13,18 +13,18 @@ router.post("/getAccount/:info?", authUserorAdmin, async (req, res) => {
       let userData = await db.collection("accounts").findOne({
         $or: [
           {
-            _id: typeof req.params.id == "string" && ObjectId.isValid(req.params.info)
+            _id: typeof req.params.info == "string" && ObjectId.isValid(req.params.info)
               ? new ObjectId(req.params.info)
               : req.params.info,
           },
           {
-            inviteCode: req.params.id,
+            inviteCode: req.params.info,
           },
           { email: req.params.info },
-          { phone: parseInt(req.params.info || 0) },
+          { phone: req.params.info},
         ]
       })
-      if (!userData) return res.status(401).send({ error: true, message: 'Account data not found' })
+      if (!userData) return res.status(401).send({ error: true, message: 'Account data not found' ,code:'NOT_FOUND'})
       req.user = {
         data: userData
       };
