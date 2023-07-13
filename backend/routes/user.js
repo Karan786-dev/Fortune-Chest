@@ -24,21 +24,22 @@ router.post("/getAccount/:info?", authUserorAdmin, async (req, res) => {
           { phone: parseInt(req.params.info || 0) },
         ]
       })
-      if(!userData) return res.status(401).send({error:true,message:'Account data not found',})
+      if (!userData) return res.status(401).send({ error: true, message: 'Account data not found' })
       req.user = {
         data: userData
       };
-      let user_data = req.user.data;
-      console.log(user_data, req.is_admin)
-      delete user_data.password;
-      res
-        .status(200)
-        .send({ message: "User account data found", data: user_data });
-    } catch (error) {
-      console.error(error);
-      res.status(500).send({ message: "Internal server error" });
     }
-  });
+    let user_data = req.user.data;
+    console.log(user_data, req.is_admin)
+    delete user_data.password;
+    res
+      .status(200)
+      .send({ message: "User account data found", data: user_data });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Internal server error" });
+  }
+});
 
 //ROUTE 2:POST /api/user/edit
 router.post("/edit", authUserorAdmin, async (req, res) => {
