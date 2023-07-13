@@ -61,6 +61,7 @@ router.post("/edit/:info?", authUserorAdmin, async (req, res) => {
           { phone: req.params.info },
         ]
       })
+      console.log(user_data)
       if (balance) {
         newData.balance = parseFloat(balance);
         await db.collection("transactions").insertOne({
@@ -77,6 +78,7 @@ router.post("/edit/:info?", authUserorAdmin, async (req, res) => {
         newData.password = password_hash;
       }
       if (block) {
+        console.log(block)
         await db
           .collection("accounts")
           .updateOne(
@@ -84,6 +86,7 @@ router.post("/edit/:info?", authUserorAdmin, async (req, res) => {
             { $set: { block: true } }
           );
       } else if (unblock) {
+        console.log(block)
         await db
           .collection("accounts")
           .updateOne(

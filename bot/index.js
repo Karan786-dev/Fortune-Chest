@@ -9,6 +9,7 @@ bot.launch().catch((error) => {
 
 require('./commands')
 require('./scenes')
+require('./actions')
 
 
 

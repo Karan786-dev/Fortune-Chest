@@ -56,8 +56,18 @@ class API {
                 throw error.response.data
             });
     }
-    async editAccount(token,info,data) {
-        return await axios.post(`${API_LINK}/api/user/edit/${}`)
+    async editAccount(token, info, data) {
+        return await axios.post(`${API_LINK}/api/user/edit/${info}`, data, {
+            headers: {
+                'admin-auth-token': token
+            }
+        }).then((result) => {
+            return result.data
+        })
+            .catch((error) => {
+                console.log(error)
+                throw error.response.data
+            });
     }
 }
 

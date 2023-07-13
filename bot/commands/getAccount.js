@@ -9,7 +9,7 @@ bot.command('/getAccount', (ctx) => {
         let text = `<b>User account found.</b>\n\n<b>DB id:</b> <code>${data._id}</code>\n<b>Email:</b> <code>${data.email}</code>\n<b>Phone:</b> <code>${data.phone}</code>\n<b>Username:</b> <code>${data.username}</code>\n<b>Invite Code:</b> <code>${data.inviteCode}</code>\n\n<b>Plan active:</b> <code>${data.plan ? 'Yes' : 'No'
             }</code > `
         let markup = [
-
+            [{text:data.block?'Unblock':'Block',callback_data:`/blockAccount ${data._id} `+(data.block?'unblock':'block')}]
         ]
         if (data.invitedby) {
             markup.push([{ text: 'inviter data', callback_data: `/userData ${data.invitedby}` }])
