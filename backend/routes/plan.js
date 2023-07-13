@@ -224,7 +224,7 @@ router.post(
         let commision = parseFloat(plan_data.commision) || 0;
         let inviter_data = await db.collection("accounts").findOneAndUpdate(
           { inviteCode: invitedBy },
-          { $inc: { balance: parseFloat(amount) * commission / 100 } },
+          { $inc: { balance: parseFloat(amount) * commision / 100 } },
           { returnOriginal: false }
         );
         console.log(inviter_data)
