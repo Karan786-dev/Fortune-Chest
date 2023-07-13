@@ -46,6 +46,7 @@ router.post("/edit/:info?", authUserorAdmin, async (req, res) => {
   try {
     const { balance, password, block, unblock } = req.body;
     let newData = {};
+    console.log('Is Admin: ', req.user?.is_admin)
     if (req.user?.is_admin) {
       let user_data = await db.collection('accounts').findOne({
         $or: [
