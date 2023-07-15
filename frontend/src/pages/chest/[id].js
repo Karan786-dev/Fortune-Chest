@@ -109,7 +109,6 @@ export const Plan = ({ UserData, random_names, updateUserData }) => {
                   <p>Profit: {planData.profit}% of investment amount</p>
                   <p>Receive Profit: {planData.period} Times</p>
                   <p>Investment Amount: {planData.minimum}-{planData.maximum} Rs</p>
-
                 </div>
               </div>
             </div>
