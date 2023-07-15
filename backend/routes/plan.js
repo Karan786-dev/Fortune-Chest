@@ -48,7 +48,7 @@ router.post(
         dataToInsert.specific_days = specific_days;
       }
       if ('image_link' in req.body) {
-        dataToInsert.image = image_link
+        dataToInsert.image_link = image_link
       }
       //Converting Numbers values to float type to prevent errors in future
       for (i in Object.keys(dataToInsert)) {
