@@ -22,4 +22,3 @@ for (let i = 0; i < daysOfWeek.length; i++) {
     add_plans_reward_in_users_accounts(dayOfWeek.toLowerCase());
   });
 }
-add_plans_reward_in_users_accounts();

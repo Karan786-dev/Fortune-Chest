@@ -20,18 +20,18 @@ router.post(
       const { profit, period, commision, specific_days, maximum, minimum, image_link } =
         req.body;
 
-      if (!profit || !period || !commision || !maximum || !maximum) {
+      if (!profit || !period || !commision || !minimum || !maximum) {
         return res
           .status(400)
           .send({ message: "Please provide all parameters", code: 'INCORRECT_PARAMS' });
       }
 
       if (
-        Number.isNaN(profit) ||
-        Number.isNaN(period) ||
-        Number.isNaN(commision) ||
-        Number.isNaN(maximum) ||
-        Number.isNaN(minimum)
+        isNaN(profit) ||
+        isNaN(period) ||
+        isNaN(commision) ||
+        isNaN(maximum) ||
+        isNaN(minimum)
       ) {
         return res.status(400).send({
           message: `Parameter must be an integer`, code: 'INCORRECT_PARAMS'
