@@ -101,7 +101,7 @@ export const Plan = ({ UserData, random_names, updateUserData }) => {
           <div className={styles.section_1_1}>
             <div>
               <div className={styles.plan_logo_container}>
-                <Image height={32} alt='Image' width={32} src={planData.image_link} />
+                <image height={32} alt='Image' width={32} src={planData.image_link} />
               </div>
               <div className={styles.plan_details}>
                 <p className={styles.head}>{planData.period} Day, {planData.profit}%</p>

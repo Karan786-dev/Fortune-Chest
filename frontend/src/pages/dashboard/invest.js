@@ -26,7 +26,7 @@ export const invest = ({ getPlansData, plansData }) => {
                             }} className={`${styles.plan_container} move_from_down`} style={{ animationDuration: index + 2 + 's' }}>
                                 <div className={styles.plan_container_2}>
                                     <div className={styles.plan_logo_container}>
-                                        <image alt='Image' src={planData.image_link} />
+                                        <image alt='Image' height="32" witdh="32" src={planData.image_link} />
                                     </div>
                                     <div>
                                         <div className={styles.plan_details_container}>
