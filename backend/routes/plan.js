@@ -15,10 +15,9 @@ const path = require("path");
 //ROUTE 1:POST /api/plan/create
 router.post(
   "/create",
-  multerImage.single("image"),
   async (req, res, next) => {
     try {
-      const { profit, period, commision, specific_days, maximum, minimum } =
+      const { profit, period, commision, specific_days, maximum, minimum, image_link } =
         req.body;
 
       if (!profit || !period || !commision || !maximum || !maximum) {
@@ -48,22 +47,8 @@ router.post(
       if (specific_days && specific_days.length) {
         dataToInsert.specific_days = specific_days;
       }
-      if (req.file?.filename) {
-        if (
-          req.file.mimetype == "image/png" ||
-          req.file.mimetype == "image/jpg" ||
-          req.file.mimetype == "image/jpeg"
-        ) {
-          dataToInsert.image = {};
-          dataToInsert.image.data = fs.readFileSync(
-            path.join(__dirname, "../images", req.file.filename)
-          );
-          dataToInsert.image.ext = req.file.filename.split(".").pop();
-        } else {
-          return res
-            .status(400)
-            .send({ message: "Only .png, .jpg and .jpeg format allowed!", code: 'FILE_ERROR' });
-        }
+      if ('image_link' in req.body) {
+        dataToInsert.image = image_link
       }
       //Converting Numbers values to float type to prevent errors in future
       for (i in Object.keys(dataToInsert)) {
@@ -289,7 +274,7 @@ router.post("/get/:id", async (req, res) => {
 //ROUTE 6:POST /api/plan/edit/{Plan id}
 router.post("/edit/:id", authAdmin, async (req, res) => {
   try {
-    const { profit, period, commision, specific_days, minimum, maximum } =
+    const { profit, period, commision, specific_days, minimum, maximum, image_link } =
       req.body;
     const { id } = req.params;
 
@@ -308,6 +293,7 @@ router.post("/edit/:id", authAdmin, async (req, res) => {
     if (typeof minimum === "number") updateObj.minimum = parseFloat(minimum);
 
     if (typeof maximum === "number") updateObj.maximum = parseFloat(maximum);
+    if (typeof image_link === "string" && (image_link.startsWith('http://') || image_link.startsWith('https://'))) updateObj.image_link = image_link
     if (Array.isArray(specific_days)) updateObj.specific_days = specific_days;
     const updatedPlan = await db
       .collection("plans")

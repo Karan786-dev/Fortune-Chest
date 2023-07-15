@@ -22,10 +22,7 @@ scene.on('message', (ctx) => {
     let amount = parseFloat(ctx.message.text)
     api.editAccount(api.GET_TOKEN(ctx.from.id), account_id, { balance: amount })
         .then((result) => {
-            console.log(result)
             ctx.replyWithHTML(`<b>Balance updated to:</b> <code>${amount.toFixed(3)}</code>`)
-            let accountText = generateAccountText(result.data)
-            ctx.replyWithHTML(accountText.text, { reply_markup: { inline_keyboard: accountText.markup } })
             ctx.scene.leave()
         })
         .catch((error) => {

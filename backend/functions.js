@@ -89,6 +89,7 @@ exports.add_plans_reward_in_users_accounts = async (day) => {
     plans.forEach((plan) => {
       plans_object[plan._id.toString()] = plan;
     });
+    console.log(plans)
     let promises = users_with_plans.map(async (user_data) => {
       let days_left_in_db = user_data.plan.days_left;
       let plan_data = plans_object[user_data.plan.id]; // Plan id from user data, field plan.id
