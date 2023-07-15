@@ -82,6 +82,20 @@ class API {
                 throw error.response.data
             });
     }
+    async getPlan(token, info) {
+        return await axios.post(`${API_LINK}/api/plan/get/${info}`, {}, {
+            headers: {
+                'admin-auth-token': token
+            }
+        }).then((result) => {
+            console.log(result)
+            return result.data
+        })
+            .catch((error) => {
+                console.log(error)
+                throw error.response.data
+            });
+    }
 }
 
 module.exports = API 

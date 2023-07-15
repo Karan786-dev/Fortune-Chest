@@ -93,7 +93,7 @@ exports.add_plans_reward_in_users_accounts = async (day) => {
     let promises = users_with_plans.map(async (user_data) => {
       let days_left_in_db = user_data.plan.days_left;
       let plan_data = plans_object[user_data.plan.id]; // Plan id from user data, field plan.id
-      console.log(plan_data,plans_object,user_data.plan.id)
+      console.log(plan_data, plans_object, user_data.plan.id)
       if (plan_data) {
         let reward =
           (user_data.plan.amount * plan_data.profit) / 100; // Profit to be added in user account

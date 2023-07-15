@@ -3,6 +3,7 @@ const paginate = require('../helpers/paginate')
 const isImageUrl = require('../helpers/isImageUrl')
 const { default: axios } = require('axios')
 const API = require('../helpers/API')
+const generatePlanText = require('../helpers/generatePlanText')
 const api = new API()
 const scene = new Scenes.BaseScene('create_plan')
 
@@ -119,9 +120,9 @@ scene.action('next', (ctx) => {
     try {
         let planData = ctx.scene.session.data
         let text = `<b>Confirm plan creation , check plan details below\n\nProfit: </b><code>${planData.profit}</code>%<i> of invested amount</i>\n<b>Period:</b> ${planData.period} <i>Times user will get profit</i>\n<b>Referall Commission:</b> <code>${planData.commission}</code>%<i> of invested amount</i>\n<b>Minimum:</b> <code>${planData.minimum}</code> <i>Minimum amount user can invest</i>\n<b>Maximum:</b> <code>${planData.maximum}</code> <i>Maximum amount user can invest</i>\n<b>Thumbnail:</b> ${planData.image_link}`
-        if (ctx.scene.session.data.specific_days.length) {
+        if (planData.specific_days.length) {
             text += `\n\n<b>Users will only receive profit on these days: `
-            ctx.scene.session.data.specific_days.forEach((element, index) => {
+            planData.specific_days.forEach((element, index) => {
                 text += (index == 0) ? element : ',' + element
             })
         } else {
@@ -140,9 +141,13 @@ scene.action('continue', ctx => {
         let planData = ctx.scene.session.data
         api.createPlan(api.GET_TOKEN(ctx.from.id), planData).
             then((result) => {
-                console.log(result)
+                ctx.deleteMessage()
+                ctx.replyWithHTML(`<b>Plan created succesfully</b>`)
+                let planText = generatePlanText(result.data)
+                ctx.replyWithHTML(planText.text, { reply_markup: { inline_keyboard: planText.markup } })
             })
             .catch((error) => {
+                ctx.reply(error.message)
                 console.log(error)
             })
     } catch (error) {
