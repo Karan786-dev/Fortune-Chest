@@ -122,8 +122,8 @@ export const Plan = ({ UserData, random_names, updateUserData }) => {
                 <p>&#8377;{planData.minimum}-&#8377;{planData.maximum}</p>
               </div>
               <div>
-                <p>Refer Commision:</p>
-                <p>{planData.commision || 0}%</p>
+                <p>Refer commission:</p>
+                <p>{planData.commission || 0}%</p>
               </div>
               <div>
                 <p>Income:</p>

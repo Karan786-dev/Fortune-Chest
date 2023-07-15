@@ -17,10 +17,10 @@ router.post(
   "/create",
   async (req, res, next) => {
     try {
-      const { profit, period, commision, specific_days, maximum, minimum, image_link } =
+      const { profit, period, commission, specific_days, maximum, minimum, image_link } =
         req.body;
 
-      if (!profit || !period || !commision || !minimum || !maximum) {
+      if (!profit || !period || !commission || !minimum || !maximum) {
         return res
           .status(400)
           .send({ message: "Please provide all parameters", code: 'INCORRECT_PARAMS' });
@@ -29,7 +29,7 @@ router.post(
       if (
         isNaN(profit) ||
         isNaN(period) ||
-        isNaN(commision) ||
+        isNaN(commission) ||
         isNaN(maximum) ||
         isNaN(minimum)
       ) {
@@ -40,7 +40,7 @@ router.post(
       let dataToInsert = {
         profit,
         period,
-        commision,
+        commission,
         maximum,
         minimum,
       };
@@ -203,19 +203,19 @@ router.post(
         data: { plan_id: plan_data._id }
       });
       //Adding commission to inviter if exists
-      if (req.user.data.invitedBy && plan_data.commision) {
+      if (req.user.data.invitedBy && plan_data.commission) {
         let invitedBy =
           req.user.data.invitedBy; //Invite code is inviter _id
-        let commision = parseFloat(plan_data.commision) || 0;
+        let commission = parseFloat(plan_data.commission) || 0;
         let inviter_data = (await db.collection("accounts").findOneAndUpdate(
           { inviteCode: invitedBy },
-          { $inc: { balance: parseFloat(amount) * commision / 100 } },
+          { $inc: { balance: parseFloat(amount) * commission / 100 } },
           { returnOriginal: false }
         )).value
         console.log(inviter_data)
         await db.collection("transactions").insertOne({
           user_id: inviter_data._id,
-          amount: (parseFloat(amount) * commision) / 100,
+          amount: (parseFloat(amount) * commission) / 100,
           type: "credited",
           reason: "Referall Comsission",
           time: new Date(),
@@ -223,9 +223,9 @@ router.post(
         });
         send_mail(
           inviter_data.email,
-          `Your refer bought a plan and you got ${commision}% or ${(parseFloat(amount) * commision) / 100
+          `Your refer bought a plan and you got ${commission}% or ${(parseFloat(amount) * commission) / 100
           } rs in your account`,
-          "Commision"
+          "commission"
         );
       }
 
@@ -274,7 +274,7 @@ router.post("/get/:id", async (req, res) => {
 //ROUTE 6:POST /api/plan/edit/{Plan id}
 router.post("/edit/:id", authAdmin, async (req, res) => {
   try {
-    const { profit, period, commision, specific_days, minimum, maximum, image_link } =
+    const { profit, period, commission, specific_days, minimum, maximum, image_link } =
       req.body;
     const { id } = req.params;
 
@@ -288,7 +288,7 @@ router.post("/edit/:id", authAdmin, async (req, res) => {
 
     if (typeof period === "number") updateObj.period = period;
 
-    if (typeof commision === "number") updateObj.commision = commision;
+    if (typeof commission === "number") updateObj.commission = commission;
 
     if (typeof minimum === "number") updateObj.minimum = parseFloat(minimum);
 

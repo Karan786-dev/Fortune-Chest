@@ -138,7 +138,7 @@ scene.action('next', (ctx) => {
 scene.action('continue', ctx => {
     try {
         let planData = ctx.scene.session.data
-        consolr.log(planData)
+        console.log(planData)
         api.createPlan(api.GET_TOKEN(ctx.from.id), planData).
             then((result) => {
                 console.log(result)

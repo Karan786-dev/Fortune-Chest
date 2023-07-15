@@ -30,7 +30,7 @@ export const refer = ({ UserData, AdminData, UpdateAdminData, UpdateUserData }) 
                     <div className={styles.section_1_3}>
                         <p className={styles.heading}>REFER MORE TO EARN MORE</p>
                         <p className={styles.details}>
-                            When User Register with your refer code your will receive {AdminData.per_refer || 0}Rs , if user buy a chest you will receive commision from invested amount
+                            When User Register with your refer code your will receive {AdminData.per_refer || 0}Rs , if user buy a chest you will receive commission from invested amount
                         </p>
                     </div>
                 </div>
